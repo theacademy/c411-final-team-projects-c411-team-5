@@ -1,0 +1,43 @@
+-- Insert data into customer table
+insert into customer (username, fName, lName) values ('user1', 'John', 'Doe');
+insert into customer (username, fName, lName) values ('user2', 'Jane', 'Smith');
+insert into customer (username, fName, lName) values ('user3', 'Alice', 'Johnson');
+insert into customer (username, fName, lName) values ('user4', 'Bob', 'Brown');
+insert into customer (username, fName, lName) values ('user5', 'Charlie', 'Davis');
+insert into customer (username, fName, lName) values ('user6', 'David', 'Wilson');
+insert into customer (username, fName, lName) values ('user7', 'Eve', 'Moore');
+insert into customer (username, fName, lName) values ('user8', 'Frank', 'Taylor');
+insert into customer (username, fName, lName) values ('user9', 'Grace', 'Anderson');
+insert into customer (username, fName, lName) values ('user10', 'Hank', 'Thomas');
+insert into customer (username, fName, lName) values ('user11', 'Ivy', 'Jackson');
+insert into customer (username, fName, lName) values ('user12', 'Jack', 'White');
+insert into customer (username, fName, lName) values ('user13', 'Kathy', 'Harris');
+insert into customer (username, fName, lName) values ('user14', 'Leo', 'Martin');
+insert into customer (username, fName, lName) values ('user15', 'Mona', 'Thompson');
+insert into customer (username, fName, lName) values ('user16', 'Nina', 'Garcia');
+insert into customer (username, fName, lName) values ('user17', 'Oscar', 'Martinez');
+insert into customer (username, fName, lName) values ('user18', 'Paul', 'Robinson');
+insert into customer (username, fName, lName) values ('user19', 'Quinn', 'Clark');
+insert into customer (username, fName, lName) values ('user20', 'Rita', 'Rodriguez');
+
+-- Insert data into user_cred table
+insert into user_cred (username, password) values ('user1', 'password1');
+insert into user_cred (username, password) values ('user2', 'password2');
+insert into user_cred (username, password) values ('user3', 'password3');
+insert into user_cred (username, password) values ('user4', 'password4');
+insert into user_cred (username, password) values ('user5', 'password5');
+insert into user_cred (username, password) values ('user6', 'password6');
+insert into user_cred (username, password) values ('user7', 'password7');
+insert into user_cred (username, password) values ('user8', 'password8');
+insert into user_cred (username, password) values ('user9', 'password9');
+insert into user_cred (username, password) values ('user10', 'password10');
+insert into user_cred (username, password) values ('user11', 'password11');
+insert into user_cred (username, password) values ('user12', 'password12');
+insert into user_cred (username, password) values ('user13', 'password13');
+insert into user_cred (username, password) values ('user14', 'password14');
+insert into user_cred (username, password) values ('user15', 'password15');
+insert into user_cred (username, password) values ('user16', 'password16');
+insert into user_cred (username, password) values ('user17', 'password17');
+insert into user_cred (username, password) values ('user18', 'password18');
+insert into user_cred (username, password) values ('user19', 'password19');
+insert into user_cred (username, password) values ('user20', 'password20');
