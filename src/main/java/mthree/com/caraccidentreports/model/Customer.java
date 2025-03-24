@@ -1,5 +1,7 @@
 package mthree.com.caraccidentreports.model;
 
+import java.util.Objects;
+
 public class Customer {
     private int cid;
     private String username;
@@ -36,5 +38,20 @@ public class Customer {
 
     public void setlName(String lName) {
         this.lName = lName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return getCid() == customer.getCid()
+                && Objects.equals(getUsername(), customer.getUsername())
+                && Objects.equals(getfName(), customer.getfName())
+                && Objects.equals(getlName(), customer.getlName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCid(), getUsername(), getfName(), getlName());
     }
 }
