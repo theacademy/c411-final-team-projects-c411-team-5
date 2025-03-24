@@ -3,6 +3,7 @@ package mthree.com.caraccidentreports.service;
 import mthree.com.caraccidentreports.dao.mappers.CustomerDao;
 import mthree.com.caraccidentreports.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,15 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
     }
 
     @Override
+    public Customer addNewCustomer(Customer customer) {
+        if (customer.getUsername() == null || customer.getUsername().trim().isEmpty()) {
+            customer.setUsername("Name blank, customer NOT added");
+        }
+
+        return customerDao.addCustomer(customer);
+    }
+
+    @Override
     public List<Customer> getAllCustomers() {
         return customerDao.getAllCustomers();
     }
@@ -27,23 +37,13 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
 
         try {
             customer = customerDao.getCustomerById(cid);
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
             customer = new Customer();
             customer.setUsername("Customer Not Found");
             customer.setfName("Customer Not Found");
             customer.setlName("Customer Not Found");
         }
 
-        return customer;
-    }
-
-    @Override
-    public Customer addNewCustomer(Customer customer) {
-        if (customer.getUsername() == null || customer.getUsername().trim().isEmpty()) {
-            customer.setUsername("Invalid Username");
-        }
-
-        customerDao.addCustomer(customer);
         return customer;
     }
 
@@ -63,6 +63,7 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
     @Override
     public void deleteCustomer(int cid) {
         customerDao.deleteCustomer(cid);
+
         System.out.println("Customer ID: " + cid + " deleted");
     }
 }
