@@ -41,4 +41,39 @@ public class DatabaseInitTest {
         Assertions.assertFalse(credentials.isEmpty());
         Assertions.assertEquals(20, credentials.size());
     }
+
+    @Test
+    @DisplayName("Does customer exists")
+    public void testCustomerExist(){
+        final String sql = "SELECT * FROM customer WHERE cid = ?";
+        Customer customer = jdbcTemplate.queryForObject(sql, new CustomerMapper(), 5);
+        Assertions.assertNotNull(customer);
+        Assertions.assertEquals("Charlie",customer.getfName());
+        Assertions.assertEquals("Davis", customer.getlName());
+        Assertions.assertEquals("user5", customer.getUsername());
+        Assertions.assertEquals(5, customer.getCid());
+    }
+
+    @Test
+    @DisplayName("Does customer not exists")
+    public void testCustomerNotExist(){
+        final String sql = "SELECT * FROM customer WHERE cid = ?;";
+        List<Customer> customer = jdbcTemplate.query(sql, new CustomerMapper(), 100);
+        Assertions.assertEquals(0, customer.size());
+    }
+
+    @Test
+    @DisplayName("Does all user data is retrieved")
+    public void testGetAllCustomerData(){
+        String sql = "SELECT * FROM customer WHERE username = ?;";
+        Customer customer = jdbcTemplate.queryForObject(sql, new CustomerMapper(), "user5");
+        sql = "SELECT * FROM user_cred WHERE username = ?;";
+        UserCredential credential = jdbcTemplate.queryForObject(sql, new UserCredentialMapper(), "user5");
+        Assertions.assertEquals(customer.getUsername(), credential.getUsername());
+        Assertions.assertEquals("password5",credential.getPassword());
+        Assertions.assertEquals("Charlie",customer.getfName());
+        Assertions.assertEquals("Davis", customer.getlName());
+        Assertions.assertEquals("user5", customer.getUsername());
+        Assertions.assertEquals(5, customer.getCid());
+    }
 }
