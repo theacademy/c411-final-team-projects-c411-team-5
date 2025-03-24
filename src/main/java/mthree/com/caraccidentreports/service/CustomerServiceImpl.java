@@ -1,0 +1,68 @@
+package mthree.com.caraccidentreports.service;
+
+import mthree.com.caraccidentreports.dao.mappers.CustomerDao;
+import mthree.com.caraccidentreports.model.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class CustomerServiceImpl implements CustomerServiceInterface {
+    private final CustomerDao customerDao;
+
+    @Autowired
+    public CustomerServiceImpl(CustomerDao customerDao) {
+        this.customerDao = customerDao;
+    }
+
+    @Override
+    public List<Customer> getAllCustomers() {
+        return customerDao.getAllCustomers();
+    }
+
+    @Override
+    public Customer getCustomerById(int cid) {
+        Customer customer;
+
+        try {
+            customer = customerDao.getCustomerById(cid);
+        } catch (Exception e) {
+            customer = new Customer();
+            customer.setUsername("Customer Not Found");
+            customer.setfName("Customer Not Found");
+            customer.setlName("Customer Not Found");
+        }
+
+        return customer;
+    }
+
+    @Override
+    public Customer addNewCustomer(Customer customer) {
+        if (customer.getUsername() == null || customer.getUsername().trim().isEmpty()) {
+            customer.setUsername("Invalid Username");
+        }
+
+        customerDao.addCustomer(customer);
+        return customer;
+    }
+
+    @Override
+    public Customer updateCustomer(int cid, Customer customer) {
+        if (cid != customer.getCid()) {
+            customer.setUsername("IDs do not match, customer not updated");
+            customer.setfName("IDs do not match, customer not updated");
+            customer.setlName("IDs do not match, customer not updated");
+        } else {
+            customerDao.updateCustomer(customer);
+        }
+
+        return customer;
+    }
+
+    @Override
+    public void deleteCustomer(int cid) {
+        customerDao.deleteCustomer(cid);
+        System.out.println("Customer ID: " + cid + " deleted");
+    }
+}
