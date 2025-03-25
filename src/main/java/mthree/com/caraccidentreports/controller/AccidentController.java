@@ -3,6 +3,8 @@ package mthree.com.caraccidentreports.controller;
 import mthree.com.caraccidentreports.model.Accident;
 import mthree.com.caraccidentreports.service.AccidentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,13 +22,14 @@ public class AccidentController {
     }
 
     @GetMapping("/incidents")
-    public Accident getIncidents(
+    public ResponseEntity<Accident> getIncidents(
             @RequestParam float minLon,
             @RequestParam float minLat,
             @RequestParam float maxLon,
             @RequestParam float maxLat) {
 
         String bbox = String.format("%f,%f,%f,%f", minLon, minLat, maxLon, maxLat);
-        return accidentService.getIncidents(bbox);
+        Accident accident = accidentService.getIncidents(bbox);
+        return new ResponseEntity<>(accident, HttpStatus.OK);
     }
 }

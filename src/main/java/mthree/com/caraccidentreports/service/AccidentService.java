@@ -4,6 +4,7 @@ import mthree.com.caraccidentreports.model.Accident;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientResponseException;
 
 @Service
 public class AccidentService {
@@ -21,14 +22,19 @@ public class AccidentService {
         this.restClient = restClientBuilder.baseUrl(BASE_URL).build();
     }
 
-    // input bounding box ?
     public Accident getIncidents(String bbox) {
-        // replace brackets
-        String endpoint = BASE_URL + "?key=" + API_KEY + "&categoryFilter=1&bbox=" + bbox + "&fields=" + FIELDS;
 
-        return restClient.get()
-                .uri(endpoint)
-                .retrieve()
-                .body(Accident.class);
+        try {
+            String endpoint = BASE_URL + "?key=" + API_KEY + "&categoryFilter=1&bbox=" + bbox + "&fields=" + FIELDS;
+
+            return restClient.get()
+                    .uri(endpoint)
+                    .retrieve()
+                    .body(Accident.class);
+        } catch (RestClientResponseException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 }
