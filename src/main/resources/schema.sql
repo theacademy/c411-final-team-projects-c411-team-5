@@ -7,7 +7,7 @@ create table customer (
 );
 
 drop table if exists user_cred;
-create table user_cred(
+create table user_cred (
     username varchar(25),
     password varchar(25)
 );
