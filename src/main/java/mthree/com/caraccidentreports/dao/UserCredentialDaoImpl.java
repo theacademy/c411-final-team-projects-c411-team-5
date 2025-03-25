@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserCredentialDaoImpl implements UserCredentialDao {
+
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -17,28 +18,32 @@ public class UserCredentialDaoImpl implements UserCredentialDao {
     }
 
     @Override
-    public UserCredential getUserCredentialByUsername(String username) {
-        UserCredential userCredential;
-        String sql = "SELECT * FROM user_cred WHERE username = ?";
-
-        try {
-            userCredential = jdbcTemplate.queryForObject(sql, new UserCredentialMapper(), username);
-        } catch (DataAccessException e) {
-            userCredential = new UserCredential();
-            userCredential.setUsername("User Not Found");
-            userCredential.setPassword("User Not Found");
-        }
+    public UserCredential addUserCredential(UserCredential userCredential) {
+        final String sql = "INSERT INTO user_cred (username, password) VALUES (?, ?)";
+        jdbcTemplate.update(sql, userCredential.getUsername(), userCredential.getPassword());
 
         return userCredential;
     }
 
     @Override
-    public void addUserCredential(UserCredential userCredential) {
-        if (userCredential.getUsername() == null || userCredential.getUsername().trim().isEmpty()) {
-            return;
+    public UserCredential getUserCredentialByUsername(String username) {
+        try {
+            final String sql = "SELECT * FROM user_cred WHERE username = ?";
+            return jdbcTemplate.queryForObject(sql, new UserCredentialMapper(), username);
+        } catch (DataAccessException e) {
+            return null;
         }
+    }
 
-        String sql = "INSERT INTO user_cred (username, password) VALUES (?, ?)";
-        jdbcTemplate.update(sql, userCredential.getUsername(), userCredential.getPassword());
+    @Override
+    public void updateUserCredential(String username, String newPassword) {
+        final String sql = "UPDATE user_cred SET password = ? WHERE username = ?";
+        jdbcTemplate.update(sql, newPassword, username);
+    }
+
+    @Override
+    public void deleteUserCredential(String username) {
+        final String sql = "DELETE FROM user_cred WHERE username = ?";
+        jdbcTemplate.update(sql, username);
     }
 }

@@ -4,14 +4,18 @@ import mthree.com.caraccidentreports.dao.mappers.CustomerDao;
 import mthree.com.caraccidentreports.dao.mappers.CustomerMapper;
 import mthree.com.caraccidentreports.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
 public class CustomerDaoImpl implements CustomerDao {
+
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -20,48 +24,56 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public List<Customer> getAllCustomers() {
-        String sql = "SELECT * FROM customer";
-        return jdbcTemplate.query(sql, new CustomerMapper());
-    }
+    public Customer addCustomer(Customer customer) {
+        final String sql = "INSERT INTO customer (username, fName, lName) VALUES (?, ?, ?)";
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
-    @Override
-    public Customer getCustomerById(int cid) {
-        Customer customer;
-        String sql = "SELECT * FROM customer WHERE cid = ?";
+        jdbcTemplate.update((Connection conn) -> {
+            PreparedStatement statement = conn.prepareStatement(
+                    sql,
+                    Statement.RETURN_GENERATED_KEYS);
 
-        try {
-            customer = jdbcTemplate.queryForObject(sql, new CustomerMapper(), cid);
-        } catch (DataAccessException e) {
-            customer = new Customer();
-            customer.setUsername("Customer Not Found");
-            customer.setfName("Customer Not Found");
-            customer.setlName("Customer Not Found");
-        }
+            statement.setString(1, String.valueOf(customer.getUsername()));
+            statement.setString(2, String.valueOf(customer.getfName()));
+            statement.setString(3, String.valueOf(customer.getlName()));
+            return statement;
+        }, keyHolder);
+
+        customer.setCid(keyHolder.getKey().intValue());
 
         return customer;
     }
 
     @Override
-    public void addCustomer(Customer customer) {
-        if (customer.getUsername() == null || customer.getUsername().trim().isEmpty()) {
-            return;
-        }
+    public List<Customer> getAllCustomers() {
+        final String sql = "SELECT * FROM customer";
+        return jdbcTemplate.query(sql, new CustomerMapper());
+    }
 
-        String sql = "INSERT INTO customer (cid, username, fName, lName) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, customer.getCid(), customer.getUsername(), customer.getfName(), customer.getlName());
+    @Override
+    public Customer getCustomerById(int cid) {
+        final String sql = "SELECT * FROM customer WHERE cid = ?";
+        return jdbcTemplate.queryForObject(sql, new CustomerMapper(), cid);
     }
 
     @Override
     public void updateCustomer(Customer customer) {
-        String sql = "UPDATE customer SET username = ?, fName = ?, lName = ? WHERE cid = ?";
-        jdbcTemplate.update(sql, customer.getUsername(), customer.getfName(), customer.getlName(), customer.getCid());
+        final String sql = "UPDATE customer SET " +
+                "username = ?, " +
+                "fName = ?, " +
+                "lName = ? " +
+                "WHERE cid = ?";
+
+        jdbcTemplate.update(sql,
+                customer.getUsername(),
+                customer.getfName(),
+                customer.getlName(),
+                customer.getCid());
     }
 
     @Override
     public void deleteCustomer(int cid) {
-        String sql = "DELETE FROM customer WHERE cid = ?";
+        final String sql = "DELETE FROM customer WHERE cid = ?";
         jdbcTemplate.update(sql, cid);
-        System.out.println("Customer ID: " + cid + " deleted");
     }
 }
