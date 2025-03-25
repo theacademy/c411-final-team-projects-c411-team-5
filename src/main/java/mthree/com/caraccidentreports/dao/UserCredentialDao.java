@@ -3,7 +3,7 @@ package mthree.com.caraccidentreports.dao;
 import mthree.com.caraccidentreports.model.UserCredential;
 
 public interface UserCredentialDao {
-    UserCredential addUserPassword(UserCredential userCredential);
-    UserCredential getUserPasswordByUsername(String username);
-    void updateUserPassword(String username, String newPassword);
+    UserCredential addUserCredential(UserCredential userCredential);
+    UserCredential getUserCredentialByUsername(String username);
+    void updateUserCredential(String username, String newPassword);
 }

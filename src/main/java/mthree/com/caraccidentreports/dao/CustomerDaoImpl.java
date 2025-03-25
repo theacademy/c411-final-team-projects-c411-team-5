@@ -24,7 +24,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public Customer addCustomer(Customer customer) {
-        final String sql = "INSERT INTO customer (username, fName, lName) VALUES (?, ?, ?, ?)";
+        final String sql = "INSERT INTO customer (username, fName, lName) VALUES (?, ?, ?)";
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update((Connection conn) -> {

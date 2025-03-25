@@ -21,7 +21,7 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
             userCredential.setUsername("Username blank, password NOT added");
         }
 
-        return userCredentialDao.addUserPassword(userCredential);
+        return userCredentialDao.addUserCredential(userCredential);
 
     }
 
@@ -30,7 +30,7 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
         UserCredential userCredential;
 
         try {
-            userCredential = userCredentialDao.getUserPasswordByUsername(username);
+            userCredential = userCredentialDao.getUserCredentialByUsername(username);
         } catch (DataAccessException e) {
             userCredential = new UserCredential();
             userCredential.setUsername("User Not Found");
@@ -42,6 +42,6 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
 
     @Override
     public void updateUserPassword(String username, String newPassword) {
-        userCredentialDao.updateUserPassword(username, newPassword);
+        userCredentialDao.updateUserCredential(username, newPassword);
     }
 }
