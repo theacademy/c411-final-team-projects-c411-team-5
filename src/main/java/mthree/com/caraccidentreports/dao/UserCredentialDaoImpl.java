@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserCredentialDaoImpl implements UserCredentialDao {
+
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired

@@ -15,6 +15,7 @@ import java.util.List;
 
 @Repository
 public class CustomerDaoImpl implements CustomerDao {
+
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired

@@ -20,7 +20,9 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
     @Override
     public Customer addNewCustomer(Customer customer) {
         if (customer.getUsername() == null || customer.getUsername().trim().isEmpty()) {
-            customer.setUsername("Name blank, customer NOT added");
+            customer.setUsername("Username blank, customer NOT added");
+            customer.setfName("Username blank, customer NOT added");
+            customer.setlName("Username blank, customer NOT added");
         }
 
         return customerDao.addCustomer(customer);

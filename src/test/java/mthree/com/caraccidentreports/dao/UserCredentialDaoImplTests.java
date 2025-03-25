@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJdbcTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class UserCredentialDaoImplTest {
+class UserCredentialDaoImplTests {
+
     private JdbcTemplate jdbcTemplate;
     private UserCredentialDao userCredentialDao;
 
@@ -53,7 +54,7 @@ class UserCredentialDaoImplTest {
     @DisplayName("Get User Credential By Username Test")
     public void getUserCredentialByUsernameTest() {
         String username = "username21";
-        UserCredential retrievedCredential = userCredentialDao.getUserCredentialByUsername(username);  // Replace with an actual username in your DB
+        UserCredential retrievedCredential = userCredentialDao.getUserCredentialByUsername(username);
         assertNotNull(retrievedCredential);
         assertEquals("password123", retrievedCredential.getPassword(), "The password should match.");
     }
