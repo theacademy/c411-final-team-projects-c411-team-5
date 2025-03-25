@@ -1,10 +1,10 @@
 package mthree.com.caraccidentreports.service;
 
-import mthree.com.caraccidentreports.model.Accident;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.client.RestClientResponseException;
+import org.geojson.FeatureCollection;
 
 @Service
 public class AccidentService {
@@ -17,24 +17,33 @@ public class AccidentService {
     // when running, paste API_KEY into this variable but don't push to github!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     private final String BASE_URL = "https://api.tomtom.com/traffic/services/5/incidentDetails";
-    private final String FIELDS = "{incidents{type,geometry{type,coordinates}}}";
+    // i think we may have to use everything
+    private final String FIELDS = "{incidents{type,geometry{type,coordinates},properties{id,iconCategory,magnitudeOfDelay,events{description,code}}}}";
+
     public AccidentService(RestClient.Builder restClientBuilder) {
-        this.restClient = restClientBuilder.baseUrl(BASE_URL).build();
+        this.restClient = restClientBuilder
+                .baseUrl(BASE_URL)
+                .build();
     }
 
-    public Accident getIncidents(String bbox) {
+    public FeatureCollection getIncidents(String bbox) {
 
         try {
             String endpoint = BASE_URL + "?key=" + API_KEY + "&categoryFilter=1&bbox=" + bbox + "&fields=" + FIELDS;
 
-            return restClient.get()
+            String jsonResponse = restClient.get()
                     .uri(endpoint)
                     .retrieve()
-                    .body(Accident.class);
-        } catch (RestClientResponseException e) {
-            e.printStackTrace();
-            return null;
-        }
+                    .body(String.class);
 
+            ObjectMapper mapper = new ObjectMapper();
+            FeatureCollection featureCollection = mapper.readValue(jsonResponse, FeatureCollection.class);
+            return featureCollection;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to either fetch or parse incident data", e);
+
+        }
     }
 }
