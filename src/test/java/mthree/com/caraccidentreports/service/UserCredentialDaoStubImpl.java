@@ -39,4 +39,12 @@ public class UserCredentialDaoStubImpl implements UserCredentialDao {
             userCredential.setPassword(newPassword);
         }
     }
+
+    @Override
+    public void deleteUserCredential(String username) {
+        if (userCredential.getUsername() == username) {
+            userCredential.setUsername("User NOT Found");
+            userCredential.setPassword("User NOT Found");
+        }
+    }
 }

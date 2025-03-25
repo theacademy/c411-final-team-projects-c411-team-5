@@ -22,7 +22,6 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
         }
 
         return userCredentialDao.addUserCredential(userCredential);
-
     }
 
     @Override
@@ -43,5 +42,10 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
     @Override
     public void updateUserPassword(String username, String newPassword) {
         userCredentialDao.updateUserCredential(username, newPassword);
+    }
+
+    @Override
+    public void deleteUserCredential(String username) {
+        userCredentialDao.deleteUserCredential(username);
     }
 }

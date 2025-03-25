@@ -20,7 +20,6 @@ public class UserCredentialDaoImpl implements UserCredentialDao {
     @Override
     public UserCredential addUserCredential(UserCredential userCredential) {
         final String sql = "INSERT INTO user_cred (username, password) VALUES (?, ?)";
-
         jdbcTemplate.update(sql, userCredential.getUsername(), userCredential.getPassword());
 
         return userCredential;
@@ -39,7 +38,12 @@ public class UserCredentialDaoImpl implements UserCredentialDao {
     @Override
     public void updateUserCredential(String username, String newPassword) {
         final String sql = "UPDATE user_cred SET password = ? WHERE username = ?";
-
         jdbcTemplate.update(sql, newPassword, username);
+    }
+
+    @Override
+    public void deleteUserCredential(String username) {
+        final String sql = "DELETE FROM user_cred WHERE username = ?";
+        jdbcTemplate.update(sql, username);
     }
 }

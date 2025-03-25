@@ -65,7 +65,6 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
     @Override
     public void deleteCustomer(int cid) {
         customerDao.deleteCustomer(cid);
-
         System.out.println("Customer ID: " + cid + " deleted");
     }
 }

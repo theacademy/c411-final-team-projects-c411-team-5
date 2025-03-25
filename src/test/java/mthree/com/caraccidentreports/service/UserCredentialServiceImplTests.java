@@ -69,4 +69,20 @@ class UserCredentialServiceImplTests {
         assertNotNull(updatedUserCredential);
         assertEquals("newPassword123", updatedUserCredential.getPassword());
     }
+
+    @Test
+    @DisplayName("Delete User Credential Service Test")
+    public void deleteUserCredentialServiceTest() {
+        String usernameToDelete = "username21";
+
+        UserCredential userBeforeDelete = userCredentialService.getUserCredentialByUsername(usernameToDelete);
+        assertNotNull(userBeforeDelete);
+        assertEquals(usernameToDelete, userBeforeDelete.getUsername());
+
+        userCredentialService.deleteUserCredential(usernameToDelete);
+        UserCredential userAfterDelete = userCredentialService.getUserCredentialByUsername(usernameToDelete);
+        assertNotNull(userAfterDelete);
+        assertEquals("User NOT Found", userAfterDelete.getUsername());
+        assertEquals("User NOT Found", userAfterDelete.getPassword());
+    }
 }

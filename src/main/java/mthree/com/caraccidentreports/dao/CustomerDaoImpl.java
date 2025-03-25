@@ -53,7 +53,6 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public Customer getCustomerById(int cid) {
         final String sql = "SELECT * FROM customer WHERE cid = ?";
-
         return jdbcTemplate.queryForObject(sql, new CustomerMapper(), cid);
     }
 
