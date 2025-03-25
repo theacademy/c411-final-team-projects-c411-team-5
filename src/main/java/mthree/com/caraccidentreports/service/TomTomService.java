@@ -12,12 +12,13 @@ public class TomTomService {
 //    @Value("${tomtom.api.key}")
 //    private String apiKey;
 
-    @Autowired
+
     private RestClient restClient;
     // when running, paste API_KEY into this variable but don't push to github
     private final String API_KEY = "";
     private final String BASE_URL = "api.tomtom.com";
-
+    
+    @Autowired
     public TomTomService(RestClient restClient) {
         this.restClient = restClient;
     }
