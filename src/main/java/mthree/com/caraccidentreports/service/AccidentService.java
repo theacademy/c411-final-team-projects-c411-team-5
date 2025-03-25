@@ -17,7 +17,7 @@ public class AccidentService {
     // when running, paste API_KEY into this variable but don't push to github!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     private final String BASE_URL = "https://api.tomtom.com/traffic/services/5/incidentDetails";
-    private final String FIELDS = "incidents{type,geometry{type,coordinates}}";
+    private final String FIELDS = "{incidents{type,geometry{type,coordinates}}}";
     public AccidentService(RestClient.Builder restClientBuilder) {
         this.restClient = restClientBuilder.baseUrl(BASE_URL).build();
     }

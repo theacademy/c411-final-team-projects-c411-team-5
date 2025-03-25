@@ -31,7 +31,7 @@ public class Accident {
      */
     public static class Geometry {
         private String type; // type of geometry
-        private List<Float> coordinates; // coordinates (long, lat)
+        private float[] coordinates; // coordinates (long, lat)
 
         public String getType() {
             return type;
@@ -41,11 +41,11 @@ public class Accident {
             this.type = type;
         }
 
-        public List<Float> getCoordinates() {
+        public float[] getCoordinates() {
             return coordinates;
         }
 
-        public void setCoordinates(List<Float> coordinates) {
+        public void setCoordinates(float[] coordinates) {
             this.coordinates = coordinates;
         }
     }
