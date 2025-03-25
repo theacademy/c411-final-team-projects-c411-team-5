@@ -19,7 +19,9 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
     public UserCredential addNewUserCredential(UserCredential userCredential) throws InvalidUsernameException, InvalidPasswordException {
         // Validate credentials before adding
         validateUserCredentials(userCredential);
-
+        if(!getUserCredentialByUsername(userCredential.getUsername()).equals("User Not Found")){
+            throw new InvalidUsernameException("Username already exist");
+        }
         // Save to database if validation is successful
         return userCredentialDao.addUserCredential(userCredential);
     }
