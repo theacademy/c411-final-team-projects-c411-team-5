@@ -2,34 +2,53 @@ package mthree.com.caraccidentreports.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Accident {
-    private String typeId;
-    private boolean isOk;
-    private Float balance;
 
-    public String getTypeId() {
-        return typeId;
+    private String type; // e.g., accident, construction
+    private Geometry geometry; // location of the incident
+
+    public String getType() {
+        return type;
     }
 
-    public void setTypeId(String typeId) {
-        this.typeId = typeId;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public boolean isOk() {
-        return isOk;
+    public Geometry getGeometry() {
+        return geometry;
     }
 
-    public void setOk(boolean isOk) {
-        this.isOk = isOk;
+    public void setGeometry(Geometry geometry) {
+        this.geometry = geometry;
     }
 
-    public Float getBalance() {
-        return balance;
+    /**
+     * Nested class for Geometry (i.e. coordinates)
+     */
+    public static class Geometry {
+        private String type; // type of geometry
+        private List<Float> coordinates; // coordinates (long, lat)
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public List<Float> getCoordinates() {
+            return coordinates;
+        }
+
+        public void setCoordinates(List<Float> coordinates) {
+            this.coordinates = coordinates;
+        }
     }
 
-    public void setBalance(Float balance) {
-        this.balance = balance;
-    }
 }
+

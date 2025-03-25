@@ -13,10 +13,10 @@ public class AccidentService {
 
     // when running, paste the api key into this variable but don't push to github!!!!!!!!!!!!!!!!!!!!!!!!!!
     private final String API_KEY = "";
-    // when running, paste API_KEY into this variable but don't push to github!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // when running, paste API_KEY into this variable but don't push to github!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     private final String BASE_URL = "https://api.tomtom.com/traffic/services/5/incidentDetails";
-
+    private final String FIELDS = "incidents{type,geometry{type,coordinates}}";
     public AccidentService(RestClient.Builder restClientBuilder) {
         this.restClient = restClientBuilder.baseUrl(BASE_URL).build();
     }
@@ -24,8 +24,7 @@ public class AccidentService {
     // input bounding box ?
     public Accident getIncidents(String bbox) {
         // replace brackets
-        String endpoint = "?key=" + API_KEY + "&categoryFilter=1&bbox=" + bbox;
-        System.out.println(endpoint);
+        String endpoint = BASE_URL + "?key=" + API_KEY + "&categoryFilter=1&bbox=" + bbox + "&fields=" + FIELDS;
 
         return restClient.get()
                 .uri(endpoint)

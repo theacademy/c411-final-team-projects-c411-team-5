@@ -26,7 +26,6 @@ public class AccidentController {
             @RequestParam float maxLon,
             @RequestParam float maxLat) {
 
-        System.out.println("Received Parameters: minLon=" + minLon + ", minLat=" + minLat + ", maxLon=" + maxLon + ", maxLat=" + maxLat);
         String bbox = String.format("%f,%f,%f,%f", minLon, minLat, maxLon, maxLat);
         return accidentService.getIncidents(bbox);
     }
