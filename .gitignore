@@ -37,4 +37,4 @@ build/
 ### Mac OS ###
 .DS_Store
 src/main/resources/application.properties
-src/test/resources/application.properties
+src/test/resources/application-test.properties
