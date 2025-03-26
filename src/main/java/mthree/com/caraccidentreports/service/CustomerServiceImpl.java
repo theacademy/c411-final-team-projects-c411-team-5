@@ -1,6 +1,6 @@
 package mthree.com.caraccidentreports.service;
 
-import mthree.com.caraccidentreports.dao.mappers.CustomerDao;
+import mthree.com.caraccidentreports.dao.CustomerDao;
 import mthree.com.caraccidentreports.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;

@@ -15,8 +15,8 @@ create table user_cred (
 
 drop table if exists incident;
 create table incident (
-    iid varchar(255) primary key;
-    from_street varchar(255);
-    to_street varchar(255);
-    incident_type varchar(255);
+    iid varchar(255) primary key,
+    from_street varchar(255),
+    to_street varchar(255),
+    incident_type varchar(255)
 );
