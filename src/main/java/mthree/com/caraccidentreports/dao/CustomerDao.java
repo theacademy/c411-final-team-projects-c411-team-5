@@ -10,4 +10,6 @@ public interface CustomerDao {
     Customer getCustomerById(int cid);
     void updateCustomer(Customer customer);
     void deleteCustomer(int cid);
+
+    Customer getCustomerByUsername(String username);
 }

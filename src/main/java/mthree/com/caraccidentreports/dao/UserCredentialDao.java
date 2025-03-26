@@ -7,4 +7,6 @@ public interface UserCredentialDao {
     UserCredential getUserCredentialByUsername(String username);
     void updateUserCredential(String username, String newPassword);
     void deleteUserCredential(String username);
+
+    UserCredential checkUserCredentialsMatch(UserCredential userCredential);
 }

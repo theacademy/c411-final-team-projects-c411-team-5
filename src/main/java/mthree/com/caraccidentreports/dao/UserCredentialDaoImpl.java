@@ -34,7 +34,14 @@ public class UserCredentialDaoImpl implements UserCredentialDao {
             return null;
         }
     }
-
+    public UserCredential checkUserCredentialsMatch(UserCredential userCredential){
+        try {
+            final String sql = "SELECT * FROM user_cred WHERE username = ? AND password = ?";
+            return jdbcTemplate.queryForObject(sql, new UserCredentialMapper(), userCredential.getUsername(), userCredential.getPassword());
+        } catch (DataAccessException e) {
+            return null;
+        }
+    }
     @Override
     public void updateUserCredential(String username, String newPassword) {
         final String sql = "UPDATE user_cred SET password = ? WHERE username = ?";
