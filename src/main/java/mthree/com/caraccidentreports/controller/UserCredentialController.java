@@ -19,18 +19,18 @@ import java.util.Map;
 public class UserCredentialController {
 
     @Autowired
-    UserCredentialServiceImpl userCredentialService;
+    UserCredentialServiceImpl userCredentialServiceImpl;
 
     @GetMapping("/{username}")
     public UserCredential getUserCredentialByUsername(@PathVariable String username) {
-        return userCredentialService.getUserCredentialByUsername(username);
+        return userCredentialServiceImpl.getUserCredentialByUsername(username);
     }
 
 
     @PostMapping("/add")
     public ResponseEntity<?> addUserCredential(@RequestBody UserCredential userCredential) {
         try {
-            userCredentialService.addNewUserCredential(userCredential);
+            userCredentialServiceImpl.addNewUserCredential(userCredential);
             return ResponseEntity.ok("User added successfully!");
         } catch (InvalidUsernameException | InvalidPasswordException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -43,7 +43,7 @@ public class UserCredentialController {
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody UserCredential userCredential) {
         try {
-            UserCredential user = userCredentialService.verifyUserCredentials(userCredential);
+            UserCredential user = userCredentialServiceImpl.verifyUserCredentials(userCredential);
 
             // Return JSON instead of a string
             Map<String, String> response = new HashMap<>();
@@ -63,7 +63,7 @@ public class UserCredentialController {
     @DeleteMapping("/{username}")
     public ResponseEntity<?> deleteUser(@PathVariable String username) {
         try{
-            userCredentialService.deleteUserCredential(username);
+            userCredentialServiceImpl.deleteUserCredential(username);
             return ResponseEntity.ok("User deleted successfully!");
         }
         catch (Exception e){
@@ -72,14 +72,15 @@ public class UserCredentialController {
         }
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<?> updatePassword(@RequestBody UserCredential userCredential) {
-        try{
-            userCredentialService.updateUserPassword(userCredential.getUsername(), userCredential.getPassword());
-            return ResponseEntity.ok("Password updated successfully!");
+    @PutMapping("/update/{username}")
+    public ResponseEntity<UserCredential> updateUserCredential(@PathVariable String username, @RequestBody UserCredential userCredential) {
+        try {
+            UserCredential updatedUser = userCredentialServiceImpl.updateUserCredential(username, userCredential);
+            return ResponseEntity.ok(updatedUser);
+        } catch (InvalidUsernameException | InvalidPasswordException e) {
+            return ResponseEntity.badRequest().body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("An unexpected error occurred while deleting the user.");
-        }
-    }}
+    }
+}

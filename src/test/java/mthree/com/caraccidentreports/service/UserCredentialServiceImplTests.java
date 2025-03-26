@@ -1,6 +1,7 @@
 package mthree.com.caraccidentreports.service;
 
 import mthree.com.caraccidentreports.dao.UserCredentialDao;
+import mthree.com.caraccidentreports.model.Customer;
 import mthree.com.caraccidentreports.model.UserCredential;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,12 +22,12 @@ class UserCredentialServiceImplTests {
     @DisplayName("Add User Credential Service Test")
     public void addUserCredentialServiceTest() {
         UserCredential userCredential = new UserCredential();
-        userCredential.setUsername("username22");
+        userCredential.setUsername("user22");
         userCredential.setPassword("password123!");
 
         UserCredential newUserCredential = userCredentialService.addNewUserCredential(userCredential);
         assertNotNull(newUserCredential);
-        assertEquals("username22", newUserCredential.getUsername());
+        assertEquals("user22", newUserCredential.getUsername());
         assertEquals("password123!", newUserCredential.getPassword());
     }
 
@@ -50,9 +51,9 @@ class UserCredentialServiceImplTests {
     @Test
     @DisplayName("Get User Credential By Username Service Test")
     public void getUserCredentialByUsernameServiceTest() {
-        UserCredential userCredential = userCredentialService.getUserCredentialByUsername("username21");
+        UserCredential userCredential = userCredentialService.getUserCredentialByUsername("user21");
         assertNotNull(userCredential);
-        assertEquals("username21", userCredential.getUsername());
+        assertEquals("user21", userCredential.getUsername());
         assertEquals("password123", userCredential.getPassword());
     }
 
@@ -65,19 +66,42 @@ class UserCredentialServiceImplTests {
         assertEquals("User NOT Found", userCredential.getPassword());
     }
 
+
     @Test
-    @DisplayName("Update User Password Service Test")
-    public void updateUserPasswordServiceTest() {
-        userCredentialService.updateUserPassword("username21", "newPassword123!");
-        UserCredential updatedUserCredential = userCredentialService.getUserCredentialByUsername("username21");
-        assertNotNull(updatedUserCredential);
-        assertEquals("newPassword123!", updatedUserCredential.getPassword());
+    @DisplayName("Update User Credential Service Test")
+    public void updateUserCredentialServiceTest() {
+        UserCredential userCredential = new UserCredential();
+        userCredential.setUsername("user21");
+        userCredential.setPassword("newPassword123");
+        userCredential.setEmail("user21new@gmail.com");
+
+        UserCredential updatedCredential = userCredentialService.updateUserCredential("user21", userCredential);
+
+        assertNotNull(updatedCredential);
+        assertEquals("user21", updatedCredential.getUsername());
+        assertEquals("newPassword123", updatedCredential.getPassword());
+        assertEquals("user21new@gmail.com", updatedCredential.getEmail());
+    }
+
+    @Test
+    @DisplayName("User Credential No Update Service Test")
+    public void userCredentialNoUpdateServiceTest() {
+        UserCredential userCredential = new UserCredential();
+        userCredential.setUsername("user21");
+        userCredential.setPassword("newPassword123");
+        userCredential.setEmail("user21new@gmail.com");
+
+        UserCredential updatedCredential = userCredentialService.updateUserCredential("user20", userCredential);
+
+        assertNotNull(updatedCredential);
+        assertEquals("User NOT Found", updatedCredential.getPassword());
+        assertEquals("User NOT Found", updatedCredential.getEmail());
     }
 
     @Test
     @DisplayName("Delete User Credential Service Test")
     public void deleteUserCredentialServiceTest() {
-        String usernameToDelete = "username21";
+        String usernameToDelete = "user21";
 
         UserCredential userBeforeDelete = userCredentialService.getUserCredentialByUsername(usernameToDelete);
         assertNotNull(userBeforeDelete);

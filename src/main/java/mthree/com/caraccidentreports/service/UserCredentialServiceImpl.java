@@ -1,6 +1,7 @@
 package mthree.com.caraccidentreports.service;
 
 import mthree.com.caraccidentreports.dao.UserCredentialDao;
+import mthree.com.caraccidentreports.model.Customer;
 import mthree.com.caraccidentreports.model.UserCredential;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -51,13 +52,23 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
     }
 
     @Override
-    public void updateUserPassword(String username, String newPassword) {
-        userCredentialDao.updateUserCredential(username, newPassword);
+    public UserCredential updateUserCredential(String username, UserCredential userCredential) {
+        if (!username.equals(userCredential.getUsername())) {
+            userCredential.setUsername("Usernames do not match, user credential not updated");
+            userCredential.setEmail("Usernames do not match, user credential not updated");
+        } else {
+            userCredentialDao.updateUserCredential(userCredential);
+        }
+        return userCredentialDao.getUserCredentialByUsername(username);
     }
 
     @Override
     public void deleteUserCredential(String username) {
-        userCredentialDao.deleteUserCredential(username);
+        try {
+            userCredentialDao.deleteUserCredential(username);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete user credential", e);
+        }
     }
 
     public boolean validateCreateUserCredentials(UserCredential userCredential) throws InvalidUsernameException{

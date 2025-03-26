@@ -2,6 +2,9 @@ package mthree.com.caraccidentreports.service;
 
 import mthree.com.caraccidentreports.dao.UserCredentialDao;
 import mthree.com.caraccidentreports.model.UserCredential;
+import org.h2.engine.User;
+
+import java.util.List;
 
 public class UserCredentialDaoStubImpl implements UserCredentialDao {
 
@@ -9,8 +12,9 @@ public class UserCredentialDaoStubImpl implements UserCredentialDao {
 
     public UserCredentialDaoStubImpl() {
         userCredential = new UserCredential();
-        userCredential.setUsername("username21");
+        userCredential.setUsername("user21");
         userCredential.setPassword("password123");
+        userCredential.setEmail("user21@gmail.com");
     }
 
     @Override
@@ -22,26 +26,32 @@ public class UserCredentialDaoStubImpl implements UserCredentialDao {
     }
 
     @Override
+    public List<UserCredential> getAllUserCredentials() {
+        return List.of(userCredential);
+    }
+
+    @Override
     public UserCredential getUserCredentialByUsername(String username) {
-        if ("username21".equals(username)) {
+        if ("user21".equals(username)) {
             return userCredential;
         }
-        else if("username22".equals(username)){
+        else if("user22".equals(username)){
             return null;
         }
         else {
             UserCredential userCredential = new UserCredential();
             userCredential.setUsername("User NOT Found");
             userCredential.setPassword("User NOT Found");
+            userCredential.setEmail("User NOT Found");
             return userCredential;
         }
     }
 
     @Override
-    public void updateUserCredential(String username, String newPassword) {
-        if ("username21".equals(username)) {
-            userCredential.setPassword(newPassword);
-        }
+    public void updateUserCredential(UserCredential userCredential) {
+        this.userCredential.setUsername(userCredential.getUsername());
+        this.userCredential.setPassword(userCredential.getPassword());
+        this.userCredential.setEmail(userCredential.getEmail());
     }
 
     @Override
@@ -49,6 +59,7 @@ public class UserCredentialDaoStubImpl implements UserCredentialDao {
         if (userCredential.getUsername() == username) {
             userCredential.setUsername("User NOT Found");
             userCredential.setPassword("User NOT Found");
+            userCredential.setEmail("User NOT Found");
         }
     }
 
