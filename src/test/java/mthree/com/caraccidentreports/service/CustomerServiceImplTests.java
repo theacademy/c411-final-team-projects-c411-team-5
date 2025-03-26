@@ -18,6 +18,36 @@ public class CustomerServiceImplTests {
         customerService = new CustomerServiceImpl(customerDao);
     }
 
+
+    @Test
+    @DisplayName("Customer Add Service Test")
+    public void customerAddServiceTest() {
+        Customer customer = new Customer();
+        customer.setfName("New First Name");
+        customer.setlName("New Last Name");
+        customer.setUsername("New Username");
+
+        Customer newCustomer = customerService.addNewCustomer(customer);
+        assertNotNull(newCustomer);
+        assertEquals("New First Name", newCustomer.getfName());
+        assertEquals("New Last Name", newCustomer.getlName());
+        assertEquals("New Username", newCustomer.getUsername());
+    }
+
+    @Test
+    @DisplayName("Customer No Add Service Test")
+    public void customerNoAddServiceTest() {
+        Customer customer = new Customer();
+        customer.setUsername("");
+        customer.setfName("");
+        customer.setlName("");
+
+        Customer newCustomer = customerService.addNewCustomer(customer);
+        assertEquals("Username blank, customer NOT added", newCustomer.getUsername());
+        assertEquals("Username blank, customer NOT added", newCustomer.getfName());
+        assertEquals("Username blank, customer NOT added", newCustomer.getlName());
+    }
+
     @Test
     @DisplayName("Find Customer Service Test")
     public void findCustomerServiceTest() {
@@ -62,35 +92,6 @@ public class CustomerServiceImplTests {
         Customer updatedCustomer = customerService.updateCustomer(99, customer);
         assertEquals("IDs do not match, customer not updated", updatedCustomer.getfName());
         assertEquals("IDs do not match, customer not updated", updatedCustomer.getlName());
-    }
-
-    @Test
-    @DisplayName("Customer Add Service Test")
-    public void customerAddServiceTest() {
-        Customer customer = new Customer();
-        customer.setfName("New First Name");
-        customer.setlName("New Last Name");
-        customer.setUsername("New Username");
-
-        Customer newCustomer = customerService.addNewCustomer(customer);
-        assertNotNull(newCustomer);
-        assertEquals("New First Name", newCustomer.getfName());
-        assertEquals("New Last Name", newCustomer.getlName());
-        assertEquals("New Username", newCustomer.getUsername());
-    }
-
-    @Test
-    @DisplayName("Customer No Add Service Test")
-    public void customerNoAddServiceTest() {
-        Customer customer = new Customer();
-        customer.setUsername("");
-        customer.setfName("");
-        customer.setlName("");
-
-        Customer newCustomer = customerService.addNewCustomer(customer);
-        assertEquals("Username blank, customer NOT added", newCustomer.getUsername());
-        assertEquals("Username blank, customer NOT added", newCustomer.getfName());
-        assertEquals("Username blank, customer NOT added", newCustomer.getlName());
     }
 
     @Test
