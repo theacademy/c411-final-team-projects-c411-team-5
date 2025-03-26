@@ -1,6 +1,8 @@
 package mthree.com.caraccidentreports.dao;
 
+import mthree.com.caraccidentreports.model.Customer;
 import mthree.com.caraccidentreports.model.UserCredential;
+import mthree.com.caraccidentreports.service.UserCredentialServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,32 +12,29 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJdbcTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class UserCredentialDaoImplTests {
 
-    private JdbcTemplate jdbcTemplate;
-    private UserCredentialDao userCredentialDao;
+    private final JdbcTemplate jdbcTemplate;
+    private final UserCredentialDao userCredentialDao;
 
     @Autowired
-    public void UserCredentialDaoImplTests(JdbcTemplate jdbcTemplate) {
+    public UserCredentialDaoImplTests(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.userCredentialDao = new UserCredentialDaoImpl(jdbcTemplate);
     }
 
     @BeforeEach
     public void setUp() {
-        String username = "username21";
-        String fName = "William";
-        String lName = "Gates";
-        String insertCustomerSQL = "INSERT INTO customer (username, fName, lName) VALUES (?, ?, ?)";
-        jdbcTemplate.update(insertCustomerSQL, username, fName, lName);
-
         UserCredential userCredential = new UserCredential();
-        userCredential.setUsername(username);
+        userCredential.setUsername("user21");
         userCredential.setPassword("password123");
+        userCredential.setEmail("user21@gmail.com");
         userCredentialDao.addUserCredential(userCredential);
     }
 
@@ -43,29 +42,46 @@ class UserCredentialDaoImplTests {
     @DisplayName("Add User Credential Test")
     @Transactional
     public void addUserCredentialTest() {
-        String username = "username21";
-        UserCredential retrievedCredential = userCredentialDao.getUserCredentialByUsername(username);
+        UserCredential retrievedCredential = userCredentialDao.getUserCredentialByUsername("user21");
         assertNotNull(retrievedCredential, "UserCredential should not be null.");
-        assertNotNull(retrievedCredential.getPassword(), "User password should not be null.");
         assertEquals("password123", retrievedCredential.getPassword(), "The password should match.");
     }
 
     @Test
     @DisplayName("Get User Credential By Username Test")
     public void getUserCredentialByUsernameTest() {
-        String username = "username21";
-        UserCredential retrievedCredential = userCredentialDao.getUserCredentialByUsername(username);
+        UserCredential retrievedCredential = userCredentialDao.getUserCredentialByUsername("user21");
         assertNotNull(retrievedCredential);
         assertEquals("password123", retrievedCredential.getPassword(), "The password should match.");
     }
 
     @Test
-    @DisplayName("Update User Password Test")
-    public void updateUserPasswordTest() {
-        String username = "username21";
-        String newPassword = "newPassword123";
-        userCredentialDao.updateUserCredential(username, newPassword);
-        UserCredential retrievedCredential = userCredentialDao.getUserCredentialByUsername(username);
-        assertEquals(newPassword, retrievedCredential.getPassword(), "The password should match.");
+    @DisplayName("Update User Credential Test")
+    public void updateUserCredentialTest() {
+        UserCredential updatedUserCredential = new UserCredential();
+        updatedUserCredential.setUsername("user21");
+        updatedUserCredential.setPassword("newPassword123");
+        updatedUserCredential.setEmail("user21new@gmail.com");
+
+        userCredentialDao.updateUserCredential(updatedUserCredential);
+
+        List<UserCredential> credentialList = userCredentialDao.getAllUserCredentials();
+        assertNotNull(credentialList);
+
+        boolean isUpdated = credentialList.stream()
+                .anyMatch(cred -> cred.getUsername().equals("user21") &&
+                        cred.getPassword().equals("newPassword123") &&
+                        "user21new@gmail.com".equals(cred.getEmail()));
+
+        assertTrue(isUpdated, "UserCredential should be updated correctly.");
+    }
+
+    @Test
+    @DisplayName("Delete User Credential Test")
+    @Transactional
+    public void deleteUserCredentialTest() {
+        userCredentialDao.deleteUserCredential("user21");
+        assertNotNull(userCredentialDao.getAllUserCredentials());
+        assertEquals(20, userCredentialDao.getAllUserCredentials().size());
     }
 }

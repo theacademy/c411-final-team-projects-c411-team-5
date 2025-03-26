@@ -43,12 +43,24 @@ public class CustomerController {
         }
     }
     @PutMapping("/{cid}")
-    public Customer updateCustomer(@PathVariable int cid, @RequestBody Customer customer) {
-        return customerService.updateCustomer(cid, customer);
+    public ResponseEntity<?> updateCustomer(@PathVariable int cid, @RequestBody Customer customer) {
+        try {
+            customerService.updateCustomer(cid, customer);
+            return ResponseEntity.ok("Customer updated successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An unexpected error occurred while updating the customer.");
+        }
     }
 
     @DeleteMapping("/{cid}")
-    public void deleteCustomer(@PathVariable int cid) {
-        customerService.deleteCustomer(cid);
+    public ResponseEntity<?> deleteCustomer(@PathVariable int cid) {
+        try {
+            customerService.deleteCustomer(cid);
+            return ResponseEntity.ok("Customer deleted successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An unexpected error occurred while deleting the customer.");
+        }
     }
 }

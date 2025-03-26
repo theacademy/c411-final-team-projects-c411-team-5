@@ -64,8 +64,12 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
 
     @Override
     public void deleteCustomer(int cid) {
-        customerDao.deleteCustomer(cid);
-        System.out.println("Customer ID: " + cid + " deleted");
+        try {
+            customerDao.deleteCustomer(cid);
+            System.out.println("Customer ID: " + cid + " deleted");
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete customer", e);
+        }
     }
 
     public Customer getCustomerByUsername(String username) {

@@ -12,6 +12,7 @@ public class UserCredentialMapper implements RowMapper<UserCredential> {
         UserCredential userCredential = new UserCredential();
         userCredential.setUsername(rs.getString("username"));
         userCredential.setPassword(rs.getString("password"));
+        userCredential.setEmail(rs.getString("email"));
         return userCredential;
     }
 }

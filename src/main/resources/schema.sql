@@ -9,7 +9,8 @@ create table customer (
 drop table if exists user_cred;
 create table user_cred (
     username varchar(25),
-    password varchar(25)
+    password varchar(25),
+    email varchar(255)
 );
 
 drop table if exists incident;
