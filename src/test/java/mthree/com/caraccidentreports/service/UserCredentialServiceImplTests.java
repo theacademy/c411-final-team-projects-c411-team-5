@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserCredentialServiceImplTests {
+public class UserCredentialServiceImplTests {
     private UserCredentialServiceImpl userCredentialService;
 
     @BeforeEach
@@ -24,11 +24,13 @@ class UserCredentialServiceImplTests {
         UserCredential userCredential = new UserCredential();
         userCredential.setUsername("user22");
         userCredential.setPassword("password123!");
+        userCredential.setCity("San Francisco");
 
         UserCredential newUserCredential = userCredentialService.addNewUserCredential(userCredential);
         assertNotNull(newUserCredential);
         assertEquals("user22", newUserCredential.getUsername());
         assertEquals("password123!", newUserCredential.getPassword());
+        assertEquals("San Francisco", newUserCredential.getCity());
     }
 
     @Test
@@ -37,6 +39,7 @@ class UserCredentialServiceImplTests {
         UserCredential userCredential = new UserCredential();
         userCredential.setUsername("");
         userCredential.setPassword("password123!");
+        userCredential.setCity("San Francisco");
 
         // Assert that InvalidUsernameException is thrown
         InvalidUsernameException exception = assertThrows(
@@ -48,6 +51,7 @@ class UserCredentialServiceImplTests {
         // Verify the exception message
         assertEquals("Username cannot be blank", exception.getMessage());
     }
+
     @Test
     @DisplayName("Get User Credential By Username Service Test")
     public void getUserCredentialByUsernameServiceTest() {
@@ -55,6 +59,7 @@ class UserCredentialServiceImplTests {
         assertNotNull(userCredential);
         assertEquals("user21", userCredential.getUsername());
         assertEquals("password123", userCredential.getPassword());
+        assertEquals("San Francisco", userCredential.getCity());
     }
 
     @Test
@@ -64,8 +69,8 @@ class UserCredentialServiceImplTests {
         assertNotNull(userCredential);
         assertEquals("User NOT Found", userCredential.getUsername());
         assertEquals("User NOT Found", userCredential.getPassword());
+        assertEquals("User NOT Found", userCredential.getCity());
     }
-
 
     @Test
     @DisplayName("Update User Credential Service Test")
@@ -74,6 +79,7 @@ class UserCredentialServiceImplTests {
         userCredential.setUsername("user21");
         userCredential.setPassword("newPassword123");
         userCredential.setEmail("user21new@gmail.com");
+        userCredential.setCity("New York");
 
         UserCredential updatedCredential = userCredentialService.updateUserCredential("user21", userCredential);
 
@@ -81,6 +87,7 @@ class UserCredentialServiceImplTests {
         assertEquals("user21", updatedCredential.getUsername());
         assertEquals("newPassword123", updatedCredential.getPassword());
         assertEquals("user21new@gmail.com", updatedCredential.getEmail());
+        assertEquals("New York", updatedCredential.getCity());
     }
 
     @Test
@@ -96,6 +103,7 @@ class UserCredentialServiceImplTests {
         assertNotNull(updatedCredential);
         assertEquals("User NOT Found", updatedCredential.getPassword());
         assertEquals("User NOT Found", updatedCredential.getEmail());
+        assertEquals("User NOT Found", updatedCredential.getCity());
     }
 
     @Test

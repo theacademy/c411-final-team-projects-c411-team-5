@@ -13,6 +13,7 @@ public class UserCredentialMapper implements RowMapper<UserCredential> {
         userCredential.setUsername(rs.getString("username"));
         userCredential.setPassword(rs.getString("password"));
         userCredential.setEmail(rs.getString("email"));
+        userCredential.setCity(rs.getString("city"));
         return userCredential;
     }
 }

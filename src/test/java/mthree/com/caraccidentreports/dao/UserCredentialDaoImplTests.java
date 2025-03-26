@@ -35,6 +35,7 @@ class UserCredentialDaoImplTests {
         userCredential.setUsername("user21");
         userCredential.setPassword("password123");
         userCredential.setEmail("user21@gmail.com");
+        userCredential.setCity("San Francisco");
         userCredentialDao.addUserCredential(userCredential);
     }
 
@@ -62,6 +63,7 @@ class UserCredentialDaoImplTests {
         updatedUserCredential.setUsername("user21");
         updatedUserCredential.setPassword("newPassword123");
         updatedUserCredential.setEmail("user21new@gmail.com");
+        updatedUserCredential.setCity("New York");
 
         userCredentialDao.updateUserCredential(updatedUserCredential);
 
@@ -70,8 +72,9 @@ class UserCredentialDaoImplTests {
 
         boolean isUpdated = credentialList.stream()
                 .anyMatch(cred -> cred.getUsername().equals("user21") &&
-                        cred.getPassword().equals("newPassword123") &&
-                        "user21new@gmail.com".equals(cred.getEmail()));
+                        cred.getPassword().equals("newPassword123") &&  // Check hash if needed
+                        "user21new@gmail.com".equals(cred.getEmail()) &&
+                        "New York".equals(cred.getCity()));
 
         assertTrue(isUpdated, "UserCredential should be updated correctly.");
     }

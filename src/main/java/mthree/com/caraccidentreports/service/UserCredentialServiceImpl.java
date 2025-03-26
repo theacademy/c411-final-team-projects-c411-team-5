@@ -35,8 +35,10 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
             userCredential = userCredentialDao.getUserCredentialByUsername(username);
         } catch (DataAccessException e) {
             userCredential = new UserCredential();
-            userCredential.setUsername("User Not Found");
-            userCredential.setPassword("User Not Found");
+            userCredential.setUsername("User NOT Found");
+            userCredential.setPassword("User NOT Found");
+            userCredential.setEmail("User NOT Found");
+            userCredential.setCity("User NOT Found");
         }
 
         return userCredential;
@@ -55,7 +57,9 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
     public UserCredential updateUserCredential(String username, UserCredential userCredential) {
         if (!username.equals(userCredential.getUsername())) {
             userCredential.setUsername("Usernames do not match, user credential not updated");
+            userCredential.setPassword("Usernames do not match, user credential not updated");
             userCredential.setEmail("Usernames do not match, user credential not updated");
+            userCredential.setCity("Usernames do not match, user credential not updated");
         } else {
             userCredentialDao.updateUserCredential(userCredential);
         }
