@@ -11,7 +11,7 @@ public class IncidentMapper implements RowMapper<Incident> {
     @Override
     public Incident mapRow(ResultSet rs, int rowNum) throws SQLException {
         Incident incident = new Incident();
-        incident.setAid(rs.getInt("aid"));
+        incident.setAid(rs.getString("iid"));
         incident.setIncidentType(rs.getString("incidentType"));
         incident.setFrom(rs.getString("from"));
         incident.setTo(rs.getString("to"));
