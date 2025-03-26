@@ -82,13 +82,13 @@ public class TomTomAPITests {
     @Test
     @DisplayName("Rest Template Test")
     public void testRestTemplate() throws JSONException, UnsupportedEncodingException {
-        String bbox = "4.8854592519716675,52.36934334773164,4.897883244144765,52.37496348620152";
-        String fields = "{incidents{type,properties{from,to}}}";
+        String bbox = "-74.560706,40.499211,-73.247828,41.101973";
+        String fields = "{incidents{properties{events{description},from,to}}}";
         String url = BASE_URL +
                     "?bbox=" + bbox +
                     "&fields=" + fields +
-                    "&categoryFilter=0,1,2,3,4,5,6,7,8,9,10,11,14" +
-                    "&language=en-GB" +
+                    "&categoryFilter=1,7,8,9,14" +
+                    "&language=en-US" +
                     "&timeValidityFilter=present" +
                     "&key=" + apiKey;
 
