@@ -23,8 +23,9 @@ public class UserCredentialDaoImpl implements UserCredentialDao {
 
     @Override
     public UserCredential addUserCredential(UserCredential userCredential) {
-        final String sql = "INSERT INTO user_cred (username, password, email) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, userCredential.getUsername(), userCredential.getPassword(), userCredential.getEmail());
+        final String sql = "INSERT INTO user_cred (username, password, email, city) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, userCredential.getUsername(), userCredential.getPassword(),
+                            userCredential.getEmail(), userCredential.getCity());
 
         return userCredential;
     }
@@ -49,12 +50,14 @@ public class UserCredentialDaoImpl implements UserCredentialDao {
     public void updateUserCredential(UserCredential userCredential) {
         final String sql = "UPDATE user_cred SET "
                 + "password = ?, "
-                + "email = ? "
+                + "email = ?, "
+                + "city = ? "
                 + "WHERE username = ?;";
 
         jdbcTemplate.update(sql,
                 userCredential.getPassword(),
                 userCredential.getEmail(),
+                userCredential.getCity(),
                 userCredential.getUsername());
     }
 
