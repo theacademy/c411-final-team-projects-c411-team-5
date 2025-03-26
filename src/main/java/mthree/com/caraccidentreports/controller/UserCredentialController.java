@@ -49,6 +49,7 @@ public class UserCredentialController {
             Map<String, String> response = new HashMap<>();
             response.put("username", user.getUsername());
             response.put("password", user.getPassword());
+            response.put("email", user.getEmail());
             response.put("message", "Logged in successfully!");
 
             return ResponseEntity.ok(response);
