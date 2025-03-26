@@ -16,11 +16,13 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
     }
 
     @Override
-    public UserCredential addNewUserCredential(UserCredential userCredential) {
-        if (userCredential.getUsername() == null || userCredential.getUsername().trim().isEmpty()) {
-            userCredential.setUsername("Username blank, password NOT added");
+    public UserCredential addNewUserCredential(UserCredential userCredential) throws InvalidUsernameException, InvalidPasswordException {
+        // Validate credentials before adding
+        validateUserCredentials(userCredential);
+        if(!getUserCredentialByUsername(userCredential.getUsername()).equals("User Not Found")){
+            throw new InvalidUsernameException("Username already exist");
         }
-
+        // Save to database if validation is successful
         return userCredentialDao.addUserCredential(userCredential);
     }
 
@@ -47,5 +49,21 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
     @Override
     public void deleteUserCredential(String username) {
         userCredentialDao.deleteUserCredential(username);
+    }
+
+    public boolean validateUserCredentials(UserCredential userCredential) throws InvalidUsernameException{
+        if(userCredential.getUsername().length() > 255){
+            throw new InvalidUsernameException("Username length can't be greater than 255 characters");
+        }else if (userCredential.getUsername() == null || userCredential.getUsername().isBlank()) {
+            throw new InvalidUsernameException("Username cannot be blank");
+        } else if (userCredential.getPassword().length() > 255) {
+            throw new InvalidPasswordException("Password length can't be greater than 255 characters");
+        }
+        else if(userCredential.getPassword().length() < 8){
+            throw  new InvalidPasswordException("Password must have a length of at least 8 characters");
+        } else if (!userCredential.getPassword().matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*")) {
+            throw new InvalidPasswordException("Password must contain at least one special character");
+        }
+        return true;
     }
 }
