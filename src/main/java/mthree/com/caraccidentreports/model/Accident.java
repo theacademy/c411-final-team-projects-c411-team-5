@@ -7,24 +7,31 @@ import org.geojson.Point;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Accident {
-    private String type;
-    private Geometry<?> geometry;
+    private String from;
+    private String to;
 
-    public String getType() {
-        return type;
+    public Accident() {}
+
+    public Accident(String from, String to) {
+        this.from = from;
+        this.to = to;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public String getFrom() {
+        return from;
     }
 
-    public Geometry<?> getGeometry() {
-        return geometry;
+    public void setFrom(String from) {
+        this.from = from;
     }
 
-    public void setGeometry(Geometry<?> geometry) {
-        this.geometry = geometry;
+    public String getTo() {
+        return to;
     }
 
+    public void setTo(String to) {
+        this.to = to;
+    }
+    
 }
 
