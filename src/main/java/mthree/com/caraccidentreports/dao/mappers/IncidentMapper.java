@@ -11,10 +11,10 @@ public class IncidentMapper implements RowMapper<Incident> {
     @Override
     public Incident mapRow(ResultSet rs, int rowNum) throws SQLException {
         Incident incident = new Incident();
-        incident.setAid(rs.getString("iid"));
-        incident.setIncidentType(rs.getString("incidentType"));
-        incident.setFrom(rs.getString("from"));
-        incident.setTo(rs.getString("to"));
+        incident.setIid(rs.getString("iid"));
+        incident.setIncidentType(rs.getString("incident_type"));
+        incident.setFrom(rs.getString("from_street"));
+        incident.setTo(rs.getString("to_street"));
         return incident;
     }
 }

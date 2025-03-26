@@ -31,7 +31,7 @@ public class IncidentController {
 
         String bbox = String.format("%f,%f,%f,%f", minLon, minLat, maxLon, maxLat);
 
-        List<Incident> response = incidentService.getIncidents(bbox);
+        List<Incident> response = incidentService.refreshIncidents(bbox);
 
         return ResponseEntity.ok(response);
 

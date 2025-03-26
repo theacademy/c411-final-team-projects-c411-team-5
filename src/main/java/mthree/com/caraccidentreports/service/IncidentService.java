@@ -2,9 +2,12 @@ package mthree.com.caraccidentreports.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import mthree.com.caraccidentreports.dao.IncidentDao;
 import mthree.com.caraccidentreports.model.Incident;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.json.JSONObject;
@@ -28,10 +31,12 @@ public class IncidentService {
     // i think we may have to use everything
     private String FIELDS = "{incidents{properties{events{description},from,to}}}";
     private String FILTER = "1,7,8,9,14";
+    private IncidentDao incidentDao;
 
     @Autowired
-    public IncidentService(RestClient restClient) {
+    public IncidentService(RestClient restClient, IncidentDao incidentDao) {
         this.restClient = restClient;
+        this.incidentDao = incidentDao;
     }
 
     private List<Incident> jsonToListOfAccidents(JsonNode incidentsNode) {
@@ -55,7 +60,7 @@ public class IncidentService {
         return incidents;
     }
 
-    public List<Incident> getIncidents(String bbox) {
+    private List<Incident> getIncidents(String bbox) {
         try {
             String url = BASE_URL +
                     "?bbox=" + bbox +
@@ -82,5 +87,17 @@ public class IncidentService {
             throw new RuntimeException("Failed to either fetch or parse incident data", e);
 
         }
+    }
+
+    public List<Incident> refreshIncidents(String bbox) {
+        List<Incident> incidents = getIncidents(bbox);
+        for (Incident incident : incidents) {
+            incidentDao.createIncident(incident);
+        }
+        return incidents;
+    }
+
+    public List<Incident> getIncidents() {
+        return incidentDao.getIncidents();
     }
 }

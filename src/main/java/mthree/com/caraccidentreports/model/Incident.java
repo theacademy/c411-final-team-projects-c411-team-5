@@ -3,6 +3,7 @@ package mthree.com.caraccidentreports.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -44,8 +45,20 @@ public class Incident {
         return iid;
     }
 
-    public void setAid(String iid) {
+    public void setIid(String iid) {
         this.iid = iid;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Incident incident = (Incident) o;
+        return Objects.equals(getIid(), incident.getIid()) && Objects.equals(getFrom(), incident.getFrom()) && Objects.equals(getTo(), incident.getTo()) && Objects.equals(getIncidentType(), incident.getIncidentType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIid(), getFrom(), getTo(), getIncidentType());
     }
 }
 

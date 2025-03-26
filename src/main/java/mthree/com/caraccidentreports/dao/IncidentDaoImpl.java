@@ -32,15 +32,15 @@ public class IncidentDaoImpl implements IncidentDao {
 
     @Override
     public Incident getIncidentById(String id) {
-        String sql = "select * from incident where iid=?";
+        String sql = "select * from incident where iid = ?";
         return jdbcTemplate.queryForObject(sql, new IncidentMapper(), id);
     }
 
     @Override
     public Incident createIncident(Incident incident) {
-        String sql = "inset into incident (iid, from_street, to_street, incident_type) values(?,?,?,?)";
+        String sql = "insert into incident (iid, from_street, to_street, incident_type) values(?,?,?,?)";
         jdbcTemplate.update(sql, incident.getIid(), incident.getFrom(), incident.getTo(), incident.getIncidentType());
-        return getIncidentById(incident.getIid());
+        return incident;
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.util.List;
 @SpringBootTest(classes = App.class)
 public class DatabaseInitTest {
 
-    private final JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     public DatabaseInitTest(JdbcTemplate jdbcTemplate) {
