@@ -83,7 +83,7 @@ public class TomTomAPITests {
     @DisplayName("Rest Template Test")
     public void testRestTemplate() throws JSONException, UnsupportedEncodingException {
         String bbox = "4.8854592519716675,52.36934334773164,4.897883244144765,52.37496348620152";
-        String fields = "{incidents{type,geometry{type,coordinates}}}";
+        String fields = "{incidents{type,properties{from,to}}}";
         String url = BASE_URL +
                     "?bbox=" + bbox +
                     "&fields=" + fields +
