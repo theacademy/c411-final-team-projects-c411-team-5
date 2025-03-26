@@ -1,6 +1,6 @@
 package mthree.com.caraccidentreports.dao;
 
-import mthree.com.caraccidentreports.dao.mappers.CustomerDao;
+import mthree.com.caraccidentreports.dao.CustomerDao;
 import mthree.com.caraccidentreports.dao.mappers.CustomerMapper;
 import mthree.com.caraccidentreports.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;

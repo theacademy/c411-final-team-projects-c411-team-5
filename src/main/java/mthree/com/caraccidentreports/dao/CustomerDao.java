@@ -1,4 +1,4 @@
-package mthree.com.caraccidentreports.dao.mappers;
+package mthree.com.caraccidentreports.dao;
 
 import mthree.com.caraccidentreports.model.Customer;
 

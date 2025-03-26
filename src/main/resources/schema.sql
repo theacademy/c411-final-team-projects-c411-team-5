@@ -11,3 +11,11 @@ create table user_cred (
     username varchar(25),
     password varchar(25)
 );
+
+drop table if exists incident;
+create table incident (
+    iid varchar(255) primary key;
+    from_street varchar(255);
+    to_street varchar(255);
+    incident_type varchar(255);
+);

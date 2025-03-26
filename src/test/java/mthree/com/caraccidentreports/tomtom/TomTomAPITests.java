@@ -96,7 +96,8 @@ public class TomTomAPITests {
                 .uri(url)
                 .retrieve()
                 .body(String.class);
-        String jsonRes = new JSONObject(response).toString(2);
+        JSONObject jsonResponse = new JSONObject(response);
+        String jsonRes = jsonResponse.toString(2);
         System.out.println(jsonRes);
     }
 }

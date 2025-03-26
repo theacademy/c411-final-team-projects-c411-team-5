@@ -1,29 +1,29 @@
 package mthree.com.caraccidentreports.controller;
 
-import mthree.com.caraccidentreports.service.AccidentService;
-import org.geojson.Feature;
-import org.geojson.FeatureCollection;
+import mthree.com.caraccidentreports.model.Incident;
+import mthree.com.caraccidentreports.service.IncidentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/traffic")
-public class AccidentController {
+public class IncidentController {
+    
+    private final IncidentService incidentService;
 
     @Autowired
-    private final AccidentService accidentService;
-
-    public AccidentController(AccidentService accidentService) {
-        this.accidentService = accidentService;
+    public IncidentController(IncidentService incidentService) {
+        this.incidentService = incidentService;
     }
 
     @GetMapping("/incidents")
-    public ResponseEntity<FeatureCollection> getIncidents(
+    public ResponseEntity<List<Incident>> getIncidents(
             @RequestParam float minLon,
             @RequestParam float minLat,
             @RequestParam float maxLon,
@@ -31,7 +31,7 @@ public class AccidentController {
 
         String bbox = String.format("%f,%f,%f,%f", minLon, minLat, maxLon, maxLat);
 
-        FeatureCollection response = accidentService.getIncidents(bbox);
+        List<Incident> response = incidentService.getIncidents(bbox);
 
         return ResponseEntity.ok(response);
 
