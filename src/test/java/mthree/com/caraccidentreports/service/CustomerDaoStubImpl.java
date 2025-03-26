@@ -61,4 +61,9 @@ public class CustomerDaoStubImpl implements CustomerDao {
             customer.setlName("Customer Not Found");
         }
     }
+
+    @Override
+    public Customer getCustomerByUsername(String username) {
+        return null;
+    }
 }

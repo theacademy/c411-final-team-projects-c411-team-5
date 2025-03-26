@@ -25,7 +25,11 @@ public class UserCredentialDaoStubImpl implements UserCredentialDao {
     public UserCredential getUserCredentialByUsername(String username) {
         if ("username21".equals(username)) {
             return userCredential;
-        } else {
+        }
+        else if("username22".equals(username)){
+            return null;
+        }
+        else {
             UserCredential userCredential = new UserCredential();
             userCredential.setUsername("User NOT Found");
             userCredential.setPassword("User NOT Found");
@@ -46,5 +50,10 @@ public class UserCredentialDaoStubImpl implements UserCredentialDao {
             userCredential.setUsername("User NOT Found");
             userCredential.setPassword("User NOT Found");
         }
+    }
+
+    @Override
+    public UserCredential checkUserCredentialsMatch(UserCredential userCredential) {
+        return null;
     }
 }

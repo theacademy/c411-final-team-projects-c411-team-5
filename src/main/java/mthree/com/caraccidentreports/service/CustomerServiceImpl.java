@@ -67,4 +67,19 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
         customerDao.deleteCustomer(cid);
         System.out.println("Customer ID: " + cid + " deleted");
     }
+
+    public Customer getCustomerByUsername(String username) {
+        Customer customer;
+
+        try {
+            customer = customerDao.getCustomerByUsername(username);
+        } catch (DataAccessException e) {
+            customer = new Customer();
+            customer.setUsername("Customer Not Found");
+            customer.setfName("Customer Not Found");
+            customer.setlName("Customer Not Found");
+        }
+
+        return customer;
+    }
 }

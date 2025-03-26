@@ -6,8 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class UserCredentialServiceImplTests {
     private UserCredentialServiceImpl userCredentialService;
@@ -22,13 +21,13 @@ class UserCredentialServiceImplTests {
     @DisplayName("Add User Credential Service Test")
     public void addUserCredentialServiceTest() {
         UserCredential userCredential = new UserCredential();
-        userCredential.setUsername("username21");
-        userCredential.setPassword("password123");
+        userCredential.setUsername("username22");
+        userCredential.setPassword("password123!");
 
         UserCredential newUserCredential = userCredentialService.addNewUserCredential(userCredential);
         assertNotNull(newUserCredential);
-        assertEquals("username21", newUserCredential.getUsername());
-        assertEquals("password123", newUserCredential.getPassword());
+        assertEquals("username22", newUserCredential.getUsername());
+        assertEquals("password123!", newUserCredential.getPassword());
     }
 
     @Test
@@ -36,13 +35,18 @@ class UserCredentialServiceImplTests {
     public void addUserCredentialWithBlankUsernameServiceTest() {
         UserCredential userCredential = new UserCredential();
         userCredential.setUsername("");
-        userCredential.setPassword("password123");
+        userCredential.setPassword("password123!");
 
-        UserCredential newUserCredential = userCredentialService.addNewUserCredential(userCredential);
-        assertNotNull(newUserCredential);
-        assertEquals("Username blank, password NOT added", newUserCredential.getUsername());
+        // Assert that InvalidUsernameException is thrown
+        InvalidUsernameException exception = assertThrows(
+                InvalidUsernameException.class,
+                () -> userCredentialService.addNewUserCredential(userCredential),
+                "Expected addNewUserCredential() to throw, but it didn't"
+        );
+
+        // Verify the exception message
+        assertEquals("Username cannot be blank", exception.getMessage());
     }
-
     @Test
     @DisplayName("Get User Credential By Username Service Test")
     public void getUserCredentialByUsernameServiceTest() {
@@ -64,10 +68,10 @@ class UserCredentialServiceImplTests {
     @Test
     @DisplayName("Update User Password Service Test")
     public void updateUserPasswordServiceTest() {
-        userCredentialService.updateUserPassword("username21", "newPassword123");
+        userCredentialService.updateUserPassword("username21", "newPassword123!");
         UserCredential updatedUserCredential = userCredentialService.getUserCredentialByUsername("username21");
         assertNotNull(updatedUserCredential);
-        assertEquals("newPassword123", updatedUserCredential.getPassword());
+        assertEquals("newPassword123!", updatedUserCredential.getPassword());
     }
 
     @Test

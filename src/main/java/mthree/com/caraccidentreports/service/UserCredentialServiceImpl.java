@@ -18,8 +18,8 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
     @Override
     public UserCredential addNewUserCredential(UserCredential userCredential) throws InvalidUsernameException, InvalidPasswordException {
         // Validate credentials before adding
-        validateUserCredentials(userCredential);
-        if(!getUserCredentialByUsername(userCredential.getUsername()).equals("User Not Found")){
+        validateCreateUserCredentials(userCredential);
+        if(getUserCredentialByUsername(userCredential.getUsername()) != null){
             throw new InvalidUsernameException("Username already exist");
         }
         // Save to database if validation is successful
@@ -42,6 +42,15 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
     }
 
     @Override
+    public UserCredential verifyUserCredentials(UserCredential userCredential) {
+        userCredential = userCredentialDao.checkUserCredentialsMatch(userCredential);
+        if(userCredential == null){
+            throw new CredentialsNotMatchException("Username and password don't match");
+        }
+        return userCredential;
+    }
+
+    @Override
     public void updateUserPassword(String username, String newPassword) {
         userCredentialDao.updateUserCredential(username, newPassword);
     }
@@ -51,7 +60,7 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
         userCredentialDao.deleteUserCredential(username);
     }
 
-    public boolean validateUserCredentials(UserCredential userCredential) throws InvalidUsernameException{
+    public boolean validateCreateUserCredentials(UserCredential userCredential) throws InvalidUsernameException{
         if(userCredential.getUsername().length() > 255){
             throw new InvalidUsernameException("Username length can't be greater than 255 characters");
         }else if (userCredential.getUsername() == null || userCredential.getUsername().isBlank()) {
@@ -66,4 +75,6 @@ public class UserCredentialServiceImpl implements UserCredentialServiceInterface
         }
         return true;
     }
+
+
 }

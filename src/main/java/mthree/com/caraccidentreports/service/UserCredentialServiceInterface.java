@@ -7,4 +7,5 @@ public interface UserCredentialServiceInterface {
     UserCredential getUserCredentialByUsername(String username);
     void updateUserPassword(String username, String newPassword);
     void deleteUserCredential(String username);
+    public UserCredential verifyUserCredentials(UserCredential userCredential);
 }

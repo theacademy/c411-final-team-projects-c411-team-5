@@ -76,4 +76,9 @@ public class CustomerDaoImpl implements CustomerDao {
         final String sql = "DELETE FROM customer WHERE cid = ?";
         jdbcTemplate.update(sql, cid);
     }
+
+    @Override
+    public Customer getCustomerByUsername(String username) {
+        final String sql = "SELECT * FROM customer WHERE username = ?";
+        return jdbcTemplate.queryForObject(sql, new CustomerMapper(), username);    }
 }
