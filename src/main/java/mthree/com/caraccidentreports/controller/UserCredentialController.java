@@ -59,4 +59,27 @@ public class UserCredentialController {
                     .body(Map.of("error", "An unexpected error occurred."));
         }
     }
-}
+
+    @DeleteMapping("/{username}")
+    public ResponseEntity<?> deleteUser(@PathVariable String username) {
+        try{
+            userCredentialService.deleteUserCredential(username);
+            return ResponseEntity.ok("User deleted successfully!");
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An unexpected error occurred while deleting the user.");
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updatePassword(@RequestBody UserCredential userCredential) {
+        try{
+            userCredentialService.updateUserPassword(userCredential.getUsername(), userCredential.getPassword());
+            return ResponseEntity.ok("Password updated successfully!");
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An unexpected error occurred while deleting the user.");
+        }
+    }}
