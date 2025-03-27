@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Service
 public class CityService {
     private static final String BASE_URL = "https://api.tomtom.com/search/2/geocode/%s.json?key=%s";
@@ -29,7 +26,7 @@ public class CityService {
         this.mapper = new CityMapper();
     }
 
-    public City getBoundingBoxes(String city) {
+    public City getBoundingBox(String city) {
 
         String url = String.format(BASE_URL, city, apiKey);
 

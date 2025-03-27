@@ -4,8 +4,6 @@ import mthree.com.caraccidentreports.model.City;
 import mthree.com.caraccidentreports.service.CityService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/geocode")
 public class CityController {
@@ -17,7 +15,7 @@ public class CityController {
 
     @GetMapping("/{city}")
     public City getBoundingBoxes(@PathVariable String city) {
-        return cityService.getBoundingBoxes(city);
+        return cityService.getBoundingBox(city);
     }
 
 
