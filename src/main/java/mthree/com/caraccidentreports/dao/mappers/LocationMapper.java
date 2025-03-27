@@ -12,8 +12,8 @@ public class LocationMapper implements RowMapper<Location> {
     public Location mapRow(ResultSet rs, int rowNum) throws SQLException {
         Location location = new Location();
         location.setLid(rs.getString("lid"));
-        location.setCity(rs.getString("city"));
         location.setState(rs.getString("state"));
+        location.setCity(rs.getString("city"));
         return location;
     }
 }
