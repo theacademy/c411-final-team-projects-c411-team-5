@@ -13,8 +13,8 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    @GetMapping("/{city}")
-    public City getBoundingBoxes(@PathVariable String city) {
+    @GetMapping("/city")
+    public String getBoundingBoxes(@RequestParam String city) {
         return cityService.getBoundingBox(city);
     }
 

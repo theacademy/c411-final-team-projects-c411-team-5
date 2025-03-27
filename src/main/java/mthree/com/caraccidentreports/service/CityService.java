@@ -26,7 +26,7 @@ public class CityService {
         this.mapper = new CityMapper();
     }
 
-    public City getBoundingBox(String city) {
+    public String getBoundingBox(String city) {
 
         String url = String.format(BASE_URL, city, apiKey);
 
@@ -51,7 +51,7 @@ public class CityService {
      * @param response the response
      * @return the city object with coordinates stored
      */
-    private City parseBoundingBox(String response) {
+    private String parseBoundingBox(String response) {
         try {
             JsonNode root = objMapper.readTree(response);
             JsonNode boundingBox = root.at("/results/0/boundingBox");
@@ -62,7 +62,8 @@ public class CityService {
             double maxLat = boundingBox.at("/topLeftPoint/lat").asDouble();
             double maxLon = boundingBox.at("/btmRightPoint/lon").asDouble();
 
-            return new City(minLat, minLon, maxLat, maxLon);
+            //return new City(minLat, minLon, maxLat, maxLon);
+            return String.format("%f,%f,%f,%f", minLon, minLat, maxLon, maxLat);
 
         } catch (Exception e) {
             throw new RuntimeException("Error parsing bounding box data", e);
