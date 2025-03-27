@@ -28,12 +28,7 @@ public class IncidentController {
 
     @GetMapping("/incidents")
     public ResponseEntity<List<Incident>> getIncidents(@RequestParam String city) {
-
-        String url = "http://localhost:8080/api/geocode/city?city=" + city;
-        String bbox = restClient.get().uri(url).retrieve().body(String.class);
-
-        List<Incident> response = incidentService.refreshIncidents(bbox);
-
+        List<Incident> response = incidentService.refreshIncidentsForCity(city);
         return ResponseEntity.ok(response);
 
     }
