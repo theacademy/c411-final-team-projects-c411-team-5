@@ -6,13 +6,15 @@ import mthree.com.caraccidentreports.dao.mappers.CityMapper;
 import mthree.com.caraccidentreports.model.City;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class CityService {
-    private static final String BASE_URL = "https://nominatim.openstreetmap.org/search?format=json&q=";
+    private static final String BASE_URL = "https://api.tomtom.com/search/2/geocode/%s.json?key=%s";
+    private static final String API_KEY = "";
 
     private final RestClient restClient;
     private final ObjectMapper objMapper;
@@ -24,45 +26,48 @@ public class CityService {
         this.mapper = new CityMapper();
     }
 
-    public Map<String, City> getBoundingBoxes(String[] cities) {
-        Map<String, City> results = new HashMap<>();
+    public City getBoundingBoxes(String city) {
 
-        for (String city : cities) {
-            String url = buildUrl(city);
+        String url = String.format(BASE_URL, city, API_KEY);
 
-            try {
-                // restclient gets response in JSON form
-                String response = restClient
-                        .get()
-                        .uri(url)
-                        .retrieve()
-                        .body(String.class);
 
-                // turn into a json node
-                JsonNode root = objMapper.readTree(response);
+        try {
+            // restclient gets response in JSON form
+            String response = restClient
+                    .get()
+                    .uri(url)
+                    .retrieve()
+                    .body(String.class);
 
-                if (root.isArray() && root.size() > 0) {
-                    JsonNode firstResult = root.get(0);
+            return parseBoundingBox(response);
 
-                    City bbox = mapper.mapToBoundingBox(firstResult);
-
-                    // store bbox in results map
-                    if (bbox != null) {
-                        results.put(city, bbox);
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (RestClientException e) {
+            throw new RuntimeException("Error calling TomTom API", e);
         }
-        return results;
     }
 
-    private String buildUrl(String city) {
-        // replace whitespace
-        String encodedCity = city.replace(" ", "%20");
+    /**
+     * Extracts coordinates from input
+     * @param response the response
+     * @return the city object with coordinates stored
+     */
+    private City parseBoundingBox(String response) {
+        try {
+            JsonNode root = objMapper.readTree(response);
+            JsonNode boundingBox = root.at("/results/0/boundingBox");
 
-        return BASE_URL + encodedCity;
+            // if somethings going wrong this could be off but i really double checked so
+            double minLat = boundingBox.at("/btmRightPoint/lat").asDouble();
+            double minLon = boundingBox.at("/topLeftPoint/lon").asDouble();
+            double maxLat = boundingBox.at("/topLeftPoint/lat").asDouble();
+            double maxLon = boundingBox.at("/btmRightPoint/lon").asDouble();
+
+            return new City(minLat, minLon, maxLat, maxLon);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error parsing bounding box data", e);
+        }
+
     }
 
 
