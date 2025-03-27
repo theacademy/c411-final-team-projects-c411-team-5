@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/cities")
+@RequestMapping("/api/geocode")
 public class CityController {
     private final CityService cityService;
 
