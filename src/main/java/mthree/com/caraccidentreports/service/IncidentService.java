@@ -119,13 +119,15 @@ public class IncidentService {
             StringBuilder builder = new StringBuilder();
             if (this.incidents.isEmpty()) { return;}
 
-            builder.append("You have the following incidents that may hinder traffic in your area:").append("\n\n");
-            this.incidents.forEach(incident -> {
-                builder.append("Incident Type: ").append(incident.getIncidentType()).append("\n");
-                builder.append("From Street: ").append(incident.getFrom()).append("\n");
-                builder.append("To Street: ").append(incident.getTo()).append("\n");
-            });
-            builder.append("\n\n\n TEST");
+        builder.append("🚨 You have the following incidents that may hinder traffic in your area:\n\n");
+
+        this.incidents.forEach(incident -> {
+            builder.append("🔹 ").append(incident.getIncidentType()).append("\n")
+                    .append("   ➡️ From: ").append(incident.getFrom()).append("\n")
+                    .append("   ➡️ To: ").append(incident.getTo()).append("\n\n");
+        });
+
+        builder.append("⚠️ Stay safe and plan your route accordingly.\n");
 
             handleEmails(lid, builder);
     }
@@ -137,7 +139,7 @@ public class IncidentService {
             for(String c : users) {
                 String emailQuery = "SELECT email FROM user_cred WHERE username = ?;";
                 String email = jdbcTemplate.queryForObject(emailQuery, ((rs, rowNum) -> rs.getString("email")), c);
-                emailService.sendSimpleEmail(email,"There is a new incident report!",builder.toString());
+                emailService.sendSimpleEmail("diegolag2003@gmail.com","There is a new incident report!",builder.toString());
             }
     }
 
