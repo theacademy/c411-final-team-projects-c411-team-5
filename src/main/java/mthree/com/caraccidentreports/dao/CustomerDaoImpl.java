@@ -25,7 +25,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public Customer addCustomer(Customer customer) {
-        final String sql = "INSERT INTO customer (username, fName, lName, lid) VALUES (?, ?, ?, ?)";
+        final String sql = "INSERT INTO customer (username, lid, fName, lName) VALUES (?, ?, ?, ?)";
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update((Connection conn) -> {
@@ -34,9 +34,10 @@ public class CustomerDaoImpl implements CustomerDao {
                     Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, String.valueOf(customer.getUsername()));
-            statement.setString(2, String.valueOf(customer.getfName()));
-            statement.setString(3, String.valueOf(customer.getlName()));
-            statement.setString(4, String.valueOf(customer.getLid()));
+            statement.setString(2, String.valueOf(customer.getLid()));
+            statement.setString(3, String.valueOf(customer.getfName()));
+            statement.setString(4, String.valueOf(customer.getlName()));
+
             return statement;
         }, keyHolder);
 

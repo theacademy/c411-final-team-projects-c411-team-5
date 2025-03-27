@@ -88,7 +88,6 @@ public class IncidentService {
         }
     }
 
-    @Scheduled(fixedDelay = 60000 * 5)
     public List<Incident> refreshIncidents(String bbox) {
         List<Incident> incidents = getIncidents(bbox);
         for (Incident incident : incidents) {

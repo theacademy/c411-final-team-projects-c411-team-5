@@ -15,7 +15,6 @@ public class UserCredentialDaoStubImpl implements UserCredentialDao {
         userCredential.setUsername("user21");
         userCredential.setPassword("password123");
         userCredential.setEmail("user21@gmail.com");
-        userCredential.setCity("San Francisco");
     }
 
     @Override
@@ -44,7 +43,6 @@ public class UserCredentialDaoStubImpl implements UserCredentialDao {
             userCredential.setUsername("User NOT Found");
             userCredential.setPassword("User NOT Found");
             userCredential.setEmail("User NOT Found");
-            userCredential.setCity("User NOT Found");
             return userCredential;
         }
     }
@@ -54,7 +52,6 @@ public class UserCredentialDaoStubImpl implements UserCredentialDao {
         this.userCredential.setUsername(userCredential.getUsername());
         this.userCredential.setPassword(userCredential.getPassword());
         this.userCredential.setEmail(userCredential.getEmail());
-        this.userCredential.setCity(userCredential.getCity());
     }
 
     @Override
@@ -63,7 +60,6 @@ public class UserCredentialDaoStubImpl implements UserCredentialDao {
             userCredential.setUsername("User NOT Found");
             userCredential.setPassword("User NOT Found");
             userCredential.setEmail("User NOT Found");
-            userCredential.setCity("User NOT Found");
         }
     }
 

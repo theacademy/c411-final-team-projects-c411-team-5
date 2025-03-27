@@ -6,7 +6,6 @@ public class UserCredential {
     private String username;
     private String password;
     private String email;
-    private String city;
 
     public String getUsername() {return username;}
 
@@ -30,22 +29,17 @@ public class UserCredential {
         this.email = email;
     }
 
-    public String getCity() {return city;}
-
-    public void setCity(String city) {this.city = city;}
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         UserCredential that = (UserCredential) o;
         return Objects.equals(getUsername(), that.getUsername())
                 && Objects.equals(getPassword(), that.getPassword())
-                && Objects.equals(getEmail(), that.getEmail())
-                && Objects.equals(getCity(), that.getCity());
+                && Objects.equals(getEmail(), that.getEmail());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUsername(), getPassword(), getEmail(), getCity());
+        return Objects.hash(getUsername(), getPassword(), getEmail());
     }
 }

@@ -1,6 +1,7 @@
 package mthree.com.caraccidentreports.dao;
 
 import mthree.com.caraccidentreports.model.Customer;
+import mthree.com.caraccidentreports.model.UserCredential;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +20,27 @@ public class CustomerDaoImplTests {
 
     private JdbcTemplate jdbcTemplate;
     private CustomerDao customerDao;
+    private UserCredentialDao userCredentialDao;
 
     @Autowired
     public void CustomerDaoImplTests(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.customerDao = new CustomerDaoImpl(jdbcTemplate);
+        this.userCredentialDao = new UserCredentialDaoImpl(jdbcTemplate);
     }
 
     @Test
     @DisplayName("Add New Customer Test")
     public void addNewCustomerTest() {
+        UserCredential userCredential = new UserCredential();
+        userCredential.setUsername("user21");
+        userCredential.setPassword("password21");
+        userCredentialDao.addUserCredential(userCredential);
         Customer customer = new Customer();
         customer.setUsername("user21");
         customer.setfName("William");
         customer.setlName("Gates");
+        customer.setLid("loc1");
         customerDao.addCustomer(customer);
         List<Customer> customerList = customerDao.getAllCustomers();
         assertNotNull(customerList);

@@ -1,3 +1,6 @@
+-- Insert a valid location into the location table
+insert into location (lid, state, city) values ('loc1', 'California', 'Los Angeles');
+
 -- Insert data into user_cred table
 insert into user_cred (username, password, email) values ('user1', 'password1', 'user1@gmail.com');
 insert into user_cred (username, password, email) values ('user2', 'password2', 'user2@gmail.com');
