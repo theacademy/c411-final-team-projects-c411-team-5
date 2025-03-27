@@ -24,8 +24,9 @@ public class AccidentsServiceTests {
     @Test
     @DisplayName("grabbing accidents from tomtom")
     public void grabbingAccidentsFromTomtom() {
-        List<Incident> incidents = incidentService.refreshIncidents("-74.560706,40.499211,-73.247828,41.101973");
-        List<Incident> incidents2 = incidentService.getIncidents();
-        Assertions.assertEquals(incidents, incidents2);
+        List<Incident> incidents = incidentService.refreshIncidents("Seattle WA");
+        //List<Incident> incidents2 = incidentService.getIncidents();
+        //Assertions.assertEquals(incidents, incidents2);
+        Assertions.assertFalse(incidents.isEmpty());
     }
 }

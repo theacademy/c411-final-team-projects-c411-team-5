@@ -160,7 +160,7 @@ public class IncidentService {
     }
 
     public List<Incident> refreshIncidents(String city) {
-        triggerRefreshWithTimer();
+        refreshIncidentsForCity(city);
         return incidents;
     }
 
