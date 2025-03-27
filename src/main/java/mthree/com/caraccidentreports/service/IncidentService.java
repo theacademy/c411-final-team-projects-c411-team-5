@@ -3,8 +3,13 @@ package mthree.com.caraccidentreports.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mthree.com.caraccidentreports.dao.IncidentDao;
+import mthree.com.caraccidentreports.dao.mappers.CustomerMapper;
 import mthree.com.caraccidentreports.dao.mappers.IncidentMapper;
+import mthree.com.caraccidentreports.dao.mappers.UserCredentialMapper;
+import mthree.com.caraccidentreports.model.Customer;
 import mthree.com.caraccidentreports.model.Incident;
+import mthree.com.caraccidentreports.model.UserCredential;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,6 +43,7 @@ public class IncidentService {
     private List<Incident> incidents;
     private IncidentDao incidentDao;
     private JdbcTemplate jdbcTemplate;
+    private  EmailService emailService = new EmailService();
 
     @Autowired
     public IncidentService(RestClient restClient, IncidentDao incidentDao, JdbcTemplate jdbcTemplate) {
@@ -120,7 +126,15 @@ public class IncidentService {
                 builder.append("To Street: ").append(incident.getTo()).append("\n");
             });
 
-            //send email here
+            String customerSql = "SELECT lid FROM customer WHERE lid = ?;";
+            List<Customer> customers = jdbcTemplate.query(customerSql, new CustomerMapper(), lid);
+
+
+            for(Customer c : customers){
+                String userCredentialsSql = "SELECT username FROM user_cred WHERE username = ?;";
+                UserCredential userCredentials = jdbcTemplate.queryForObject(userCredentialsSql, new UserCredentialMapper(), c);
+                emailService.sendSimpleEmail(userCredentials.getEmail(),"There is a new incident report!",builder.toString());
+            }
         }
 
 
