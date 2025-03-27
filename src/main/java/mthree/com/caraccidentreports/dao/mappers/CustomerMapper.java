@@ -14,6 +14,7 @@ public class CustomerMapper implements RowMapper<Customer> {
         customer.setUsername(rs.getString("username"));
         customer.setfName(rs.getString("fName"));
         customer.setlName(rs.getString("lName"));
+        customer.setLid(rs.getString("lid"));
         return customer;
     }
 }

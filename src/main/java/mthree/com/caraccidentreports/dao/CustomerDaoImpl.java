@@ -25,7 +25,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public Customer addCustomer(Customer customer) {
-        final String sql = "INSERT INTO customer (username, fName, lName) VALUES (?, ?, ?)";
+        final String sql = "INSERT INTO customer (username, fName, lName, lid) VALUES (?, ?, ?, ?)";
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update((Connection conn) -> {
@@ -36,6 +36,7 @@ public class CustomerDaoImpl implements CustomerDao {
             statement.setString(1, String.valueOf(customer.getUsername()));
             statement.setString(2, String.valueOf(customer.getfName()));
             statement.setString(3, String.valueOf(customer.getlName()));
+            statement.setString(4, String.valueOf(customer.getLid()));
             return statement;
         }, keyHolder);
 
@@ -61,13 +62,15 @@ public class CustomerDaoImpl implements CustomerDao {
         final String sql = "UPDATE customer SET " +
                 "username = ?, " +
                 "fName = ?, " +
-                "lName = ? " +
+                "lName = ?, " +
+                "lid = ? " +
                 "WHERE cid = ?";
 
         jdbcTemplate.update(sql,
                 customer.getUsername(),
                 customer.getfName(),
                 customer.getlName(),
+                customer.getLid(),
                 customer.getCid());
     }
 

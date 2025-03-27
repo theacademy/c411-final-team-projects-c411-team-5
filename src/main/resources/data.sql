@@ -1,3 +1,25 @@
+-- Insert data into user_cred table
+insert into user_cred (username, password, email) values ('user1', 'password1', 'user1@gmail.com');
+insert into user_cred (username, password, email) values ('user2', 'password2', 'user2@gmail.com');
+insert into user_cred (username, password, email) values ('user3', 'password3', 'user3@gmail.com');
+insert into user_cred (username, password, email) values ('user4', 'password4', 'user4@gmail.com');
+insert into user_cred (username, password, email) values ('user5', 'password5', 'user5@gmail.com');
+insert into user_cred (username, password, email) values ('user6', 'password6', 'user6@gmail.com');
+insert into user_cred (username, password, email) values ('user7', 'password7', 'user7@gmail.com');
+insert into user_cred (username, password, email) values ('user8', 'password8', 'user8@gmail.com');
+insert into user_cred (username, password, email) values ('user9', 'password9', 'user9@gmail.com');
+insert into user_cred (username, password, email) values ('user10', 'password10', 'user10@gmail.com');
+insert into user_cred (username, password, email) values ('user11', 'password11', 'user11@gmail.com');
+insert into user_cred (username, password, email) values ('user12', 'password12', 'user12@gmail.com');
+insert into user_cred (username, password, email) values ('user13', 'password13', 'user13@gmail.com');
+insert into user_cred (username, password, email) values ('user14', 'password14', 'user14@gmail.com');
+insert into user_cred (username, password, email) values ('user15', 'password15', 'user15@gmail.com');
+insert into user_cred (username, password, email) values ('user16', 'password16', 'user16@gmail.com');
+insert into user_cred (username, password, email) values ('user17', 'password17', 'user17@gmail.com');
+insert into user_cred (username, password, email) values ('user18', 'password18', 'user18@gmail.com');
+insert into user_cred (username, password, email) values ('user19', 'password19', 'user19@gmail.com');
+insert into user_cred (username, password, email) values ('user20', 'password20', 'user20@gmail.com');
+
 -- Insert data into customer table
 insert into customer (username, fName, lName) values ('user1', 'John', 'Doe');
 insert into customer (username, fName, lName) values ('user2', 'Jane', 'Smith');
@@ -19,25 +41,3 @@ insert into customer (username, fName, lName) values ('user17', 'Oscar', 'Martin
 insert into customer (username, fName, lName) values ('user18', 'Paul', 'Robinson');
 insert into customer (username, fName, lName) values ('user19', 'Quinn', 'Clark');
 insert into customer (username, fName, lName) values ('user20', 'Rita', 'Rodriguez');
-
--- Insert data into user_cred table
-insert into user_cred (username, password, email, city) values ('user1', 'password1', 'user1@gmail.com', 'New York');
-insert into user_cred (username, password, email, city) values ('user2', 'password2', 'user2@gmail.com', 'Los Angeles');
-insert into user_cred (username, password, email, city) values ('user3', 'password3', 'user3@gmail.com', 'Chicago');
-insert into user_cred (username, password, email, city) values ('user4', 'password4', 'user4@gmail.com', 'Houston');
-insert into user_cred (username, password, email, city) values ('user5', 'password5', 'user5@gmail.com', 'Phoenix');
-insert into user_cred (username, password, email, city) values ('user6', 'password6', 'user6@gmail.com', 'Philadelphia');
-insert into user_cred (username, password, email, city) values ('user7', 'password7', 'user7@gmail.com', 'San Antonio');
-insert into user_cred (username, password, email, city) values ('user8', 'password8', 'user8@gmail.com', 'San Diego');
-insert into user_cred (username, password, email, city) values ('user9', 'password9', 'user9@gmail.com', 'Dallas');
-insert into user_cred (username, password, email, city) values ('user10', 'password10', 'user10@gmail.com', 'San Jose');
-insert into user_cred (username, password, email, city) values ('user11', 'password11', 'user11@gmail.com', 'Austin');
-insert into user_cred (username, password, email, city) values ('user12', 'password12', 'user12@gmail.com', 'Jacksonville');
-insert into user_cred (username, password, email, city) values ('user13', 'password13', 'user13@gmail.com', 'Fort Worth');
-insert into user_cred (username, password, email, city) values ('user14', 'password14', 'user14@gmail.com', 'Columbus');
-insert into user_cred (username, password, email, city) values ('user15', 'password15', 'user15@gmail.com', 'Charlotte');
-insert into user_cred (username, password, email, city) values ('user16', 'password16', 'user16@gmail.com', 'Indianapolis');
-insert into user_cred (username, password, email, city) values ('user17', 'password17', 'user17@gmail.com', 'Seattle');
-insert into user_cred (username, password, email, city) values ('user18', 'password18', 'user18@gmail.com', 'Denver');
-insert into user_cred (username, password, email, city) values ('user19', 'password19', 'user19@gmail.com', 'Washington');
-insert into user_cred (username, password, email, city) values ('user20', 'password20', 'user20@gmail.com', 'Boston');

@@ -9,6 +9,7 @@ import java.util.UUID;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Incident {
     private String iid;
+    private String lid;
     private String from;
     private String to;
     private String incidentType;
@@ -59,6 +60,14 @@ public class Incident {
     @Override
     public int hashCode() {
         return Objects.hash(getIid(), getFrom(), getTo(), getIncidentType());
+    }
+
+    public String getLid() {
+        return lid;
+    }
+
+    public void setLid(String lid) {
+        this.lid = lid;
     }
 }
 

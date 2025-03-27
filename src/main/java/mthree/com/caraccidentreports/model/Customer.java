@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Customer {
     private int cid;
     private String username;
+    private String lid;
     private String fName;
     private String lName;
 
@@ -53,5 +54,13 @@ public class Customer {
     @Override
     public int hashCode() {
         return Objects.hash(getCid(), getUsername(), getfName(), getlName());
+    }
+
+    public String getLid() {
+        return lid;
+    }
+
+    public void setLid(String lid) {
+        this.lid = lid;
     }
 }
