@@ -18,12 +18,10 @@ import java.util.List;
 public class IncidentController {
     
     private final IncidentService incidentService;
-    private final RestClient restClient;
 
     @Autowired
-    public IncidentController(IncidentService incidentService, RestClient restClient) {
+    public IncidentController(IncidentService incidentService) {
         this.incidentService = incidentService;
-        this.restClient = restClient;
     }
 
     @GetMapping("/incidents")
