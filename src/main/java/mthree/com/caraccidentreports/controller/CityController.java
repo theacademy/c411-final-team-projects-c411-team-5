@@ -15,7 +15,7 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    @GetMapping("/city")
+    @GetMapping("/{city}")
     public City getBoundingBoxes(@PathVariable String city) {
         return cityService.getBoundingBoxes(city);
     }
