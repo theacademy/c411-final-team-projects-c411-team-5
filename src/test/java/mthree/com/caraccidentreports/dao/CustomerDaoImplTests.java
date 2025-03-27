@@ -40,7 +40,7 @@ public class CustomerDaoImplTests {
         customer.setUsername("user21");
         customer.setfName("William");
         customer.setlName("Gates");
-        customer.setLid("loc1");
+        customer.setLid("4");
         customerDao.addCustomer(customer);
         List<Customer> customerList = customerDao.getAllCustomers();
         assertNotNull(customerList);

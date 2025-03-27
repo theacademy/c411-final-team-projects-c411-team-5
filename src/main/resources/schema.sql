@@ -18,9 +18,7 @@ create table customer (
     username varchar(255),
     lid varchar(100) default null,
     fName varchar(255) default null,
-    lName varchar(255) default null,
-    foreign key (username) references user_cred(username),
-    foreign key (lid) references location(lid)
+    lName varchar(255) default null
 );
 
 drop table if exists incident;
@@ -29,6 +27,5 @@ create table incident (
     lid varchar(100) default null,
     from_street varchar(100),
     to_street varchar(100),
-    incident_type varchar(100),
-    foreign key (lid) references location(lid)
+    incident_type varchar(100)
 );
