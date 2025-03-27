@@ -47,8 +47,8 @@ public class IncidentService {
     private List<Incident> incidents;
     private IncidentDao incidentDao;
     private JdbcTemplate jdbcTemplate;
-    private  EmailService emailService = new EmailService();
-
+    @Autowired
+    private EmailService emailService;
     @Autowired
     public IncidentService(RestClient restClient, IncidentDao incidentDao, JdbcTemplate jdbcTemplate) {
         this.restClient = restClient;
@@ -125,6 +125,7 @@ public class IncidentService {
                 builder.append("From Street: ").append(incident.getFrom()).append("\n");
                 builder.append("To Street: ").append(incident.getTo()).append("\n");
             });
+            builder.append("\n\n\n TEST");
 
             handleEmails(lid, builder);
     }
