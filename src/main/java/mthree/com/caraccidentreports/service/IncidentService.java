@@ -65,6 +65,7 @@ public class IncidentService {
                     default -> desc;
                 };
                 Incident incident = new Incident();
+                incident.setLid("2");
                 incident.setFrom(from);
                 incident.setTo(to);
                 incident.setIncidentType(desc);
@@ -128,15 +129,12 @@ public class IncidentService {
             String customerSql = "SELECT lid FROM customer WHERE lid = ?;";
             List<Customer> customers = jdbcTemplate.query(customerSql, new CustomerMapper(), lid);
 
-
-            for(Customer c : customers){
+            for(Customer c : customers) {
                 String userCredentialsSql = "SELECT username FROM user_cred WHERE username = ?;";
                 UserCredential userCredentials = jdbcTemplate.queryForObject(userCredentialsSql, new UserCredentialMapper(), c);
                 emailService.sendSimpleEmail(userCredentials.getEmail(),"There is a new incident report!",builder.toString());
             }
         }
-
-
     }
 
     public List<Incident> refreshIncidents(String bbox) {
