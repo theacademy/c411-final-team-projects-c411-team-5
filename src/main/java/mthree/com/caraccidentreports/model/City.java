@@ -6,6 +6,8 @@ public class City {
     private double maxLon;
     private double maxLat;
 
+    public City() {}
+    
     public City(double minLon, double minLat, double maxLon, double maxLat) {
         this.minLon = minLon;
         this.minLat = minLat;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mthree.com.caraccidentreports.dao.mappers.CityMapper;
 import mthree.com.caraccidentreports.model.City;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
@@ -14,7 +15,9 @@ import java.util.Map;
 @Service
 public class CityService {
     private static final String BASE_URL = "https://api.tomtom.com/search/2/geocode/%s.json?key=%s";
-    private static final String API_KEY = "";
+
+    @Value("${spring.tomtom.key}")
+    private String apiKey;
 
     private final RestClient restClient;
     private final ObjectMapper objMapper;
@@ -28,7 +31,7 @@ public class CityService {
 
     public City getBoundingBoxes(String city) {
 
-        String url = String.format(BASE_URL, city, API_KEY);
+        String url = String.format(BASE_URL, city, apiKey);
 
 
         try {
