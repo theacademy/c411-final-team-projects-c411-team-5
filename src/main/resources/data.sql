@@ -1,3 +1,11 @@
+-- Insert data into location table
+insert into location (lid, state, city) values ('1', 'CA', 'Los Angeles');
+insert into location (lid, state, city) values ('2', 'NY', 'New York City');
+insert into location (lid, state, city) values ('3', 'FL', 'Miami');
+insert into location (lid, state, city) values ('4', 'WA', 'Seattle');
+insert into location (lid, state, city) values ('5', 'TX', 'Dallas');
+
+
 -- Insert data into user_cred table
 insert into user_cred (username, password, email) values ('user1', 'password1', 'user1@gmail.com');
 insert into user_cred (username, password, email) values ('user2', 'password2', 'user2@gmail.com');
@@ -21,23 +29,23 @@ insert into user_cred (username, password, email) values ('user19', 'password19'
 insert into user_cred (username, password, email) values ('user20', 'password20', 'user20@gmail.com');
 
 -- Insert data into customer table
-insert into customer (username, fName, lName) values ('user1', 'John', 'Doe');
-insert into customer (username, fName, lName) values ('user2', 'Jane', 'Smith');
-insert into customer (username, fName, lName) values ('user3', 'Alice', 'Johnson');
-insert into customer (username, fName, lName) values ('user4', 'Bob', 'Brown');
-insert into customer (username, fName, lName) values ('user5', 'Charlie', 'Davis');
-insert into customer (username, fName, lName) values ('user6', 'David', 'Wilson');
-insert into customer (username, fName, lName) values ('user7', 'Eve', 'Moore');
-insert into customer (username, fName, lName) values ('user8', 'Frank', 'Taylor');
-insert into customer (username, fName, lName) values ('user9', 'Grace', 'Anderson');
-insert into customer (username, fName, lName) values ('user10', 'Hank', 'Thomas');
-insert into customer (username, fName, lName) values ('user11', 'Ivy', 'Jackson');
-insert into customer (username, fName, lName) values ('user12', 'Jack', 'White');
-insert into customer (username, fName, lName) values ('user13', 'Kathy', 'Harris');
-insert into customer (username, fName, lName) values ('user14', 'Leo', 'Martin');
-insert into customer (username, fName, lName) values ('user15', 'Mona', 'Thompson');
-insert into customer (username, fName, lName) values ('user16', 'Nina', 'Garcia');
-insert into customer (username, fName, lName) values ('user17', 'Oscar', 'Martinez');
-insert into customer (username, fName, lName) values ('user18', 'Paul', 'Robinson');
-insert into customer (username, fName, lName) values ('user19', 'Quinn', 'Clark');
-insert into customer (username, fName, lName) values ('user20', 'Rita', 'Rodriguez');
+insert into customer (username, lid, fName, lName) values ('user1', '1', 'John', 'Doe');
+insert into customer (username, lid, fName, lName) values ('user2', '2','Jane', 'Smith');
+insert into customer (username, lid, fName, lName) values ('user3', '3','Alice', 'Johnson');
+insert into customer (username, lid, fName, lName) values ('user4', '4','Bob', 'Brown');
+insert into customer (username, lid, fName, lName) values ('user5', '5','Charlie', 'Davis');
+insert into customer (username, lid, fName, lName) values ('user6', '1','David', 'Wilson');
+insert into customer (username, lid, fName, lName) values ('user7', '2','Eve', 'Moore');
+insert into customer (username, lid, fName, lName) values ('user8', '3','Frank', 'Taylor');
+insert into customer (username, lid, fName, lName) values ('user9', '4','Grace', 'Anderson');
+insert into customer (username, lid, fName, lName) values ('user10','5', 'Hank', 'Thomas');
+insert into customer (username, lid, fName, lName) values ('user11', '1','Ivy', 'Jackson');
+insert into customer (username, lid, fName, lName) values ('user12', '2','Jack', 'White');
+insert into customer (username, lid, fName, lName) values ('user13','3', 'Kathy', 'Harris');
+insert into customer (username, lid, fName, lName) values ('user14','4', 'Leo', 'Martin');
+insert into customer (username, lid, fName, lName) values ('user15','5', 'Mona', 'Thompson');
+insert into customer (username, lid, fName, lName) values ('user16','1', 'Nina', 'Garcia');
+insert into customer (username, lid, fName, lName) values ('user17', '2','Oscar', 'Martinez');
+insert into customer (username, lid, fName, lName) values ('user18', '3','Paul', 'Robinson');
+insert into customer (username, lid, fName, lName) values ('user19', '4','Quinn', 'Clark');
+insert into customer (username, lid, fName, lName) values ('user20', '5','Rita', 'Rodriguez');
