@@ -39,7 +39,7 @@ public class IncidentService {
     // i think we may have to use everything
     private String FIELDS = "{incidents{properties{events{description},from,to}}}";
     private String FILTER = "1,7,8,9,14";
-    private String bbox;
+    private String bbox = "1,1,1,1";
     private List<Incident> incidents;
     private IncidentDao incidentDao;
     private JdbcTemplate jdbcTemplate;
@@ -98,7 +98,6 @@ public class IncidentService {
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to either fetch or parse incident data", e);
-
         }
     }
 
