@@ -139,7 +139,7 @@ public class IncidentService {
             for(String c : users) {
                 String emailQuery = "SELECT email FROM user_cred WHERE username = ?;";
                 String email = jdbcTemplate.queryForObject(emailQuery, ((rs, rowNum) -> rs.getString("email")), c);
-                emailService.sendSimpleEmail("diegolag2003@gmail.com","There is a new incident report!",builder.toString());
+                emailService.sendSimpleEmail(email,"There is a new incident report!",builder.toString());
             }
     }
 
